@@ -1,6 +1,5 @@
 package com.example.pompsynchronizationdata.source.entity;
 
-import com.example.pompsynchronizationdata.base.entity.IdPageEntity;
 import lombok.Data;
 
 import javax.persistence.*;

@@ -18,7 +18,7 @@ import java.io.Serializable;
 // JPA 基类的标识
 @MappedSuperclass
 @Data
-public abstract class IdPageEntity implements Serializable {
+public abstract class IdEntity implements Serializable {
 
     @Id
     protected Long id;

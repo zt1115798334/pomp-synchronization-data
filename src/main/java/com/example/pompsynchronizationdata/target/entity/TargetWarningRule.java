@@ -1,6 +1,6 @@
 package com.example.pompsynchronizationdata.target.entity;
 
-import com.example.pompsynchronizationdata.base.entity.IdPageEntity;
+import com.example.pompsynchronizationdata.base.entity.IdEntity;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -18,7 +18,7 @@ import java.time.LocalTime;
 @Data
 @Entity
 @Table(name = "t_warning_rule")
-public class TargetWarningRule extends IdPageEntity {
+public class TargetWarningRule extends IdEntity {
     	/**
 	* 
 	*/

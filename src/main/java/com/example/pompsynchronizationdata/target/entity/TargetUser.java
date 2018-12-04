@@ -1,6 +1,6 @@
 package com.example.pompsynchronizationdata.target.entity;
 
-import com.example.pompsynchronizationdata.base.entity.IdPageEntity;
+import com.example.pompsynchronizationdata.base.entity.IdEntity;
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @Table(name = "t_users")
-public class TargetUser extends IdPageEntity {
+public class TargetUser extends IdEntity {
     /**
      *
      */

@@ -39,11 +39,12 @@ public class MyApplicationRunner implements ApplicationRunner {
 
 //        log.info("开始同步用户信息数据...");
 //        userCopy.handle();
+
 //        log.info("开始同步预警通知信息数据...");
 //        warningNoticeCopy.handle();
 //        log.info("开始同步预警规则信息数据...");
 //        warningRuleCopy.handle();
-//
+
         log.info("开始同步预警文章信息数据...");
         warningCopy.handle();
 

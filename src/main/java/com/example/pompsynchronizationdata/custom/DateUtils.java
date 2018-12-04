@@ -1,15 +1,11 @@
 package com.example.pompsynchronizationdata.custom;
 
-import com.example.pompsynchronizationdata.base.entity.IdPageEntity;
-import com.google.common.base.Objects;
-import com.google.common.collect.Maps;
 import org.apache.commons.lang3.StringUtils;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.util.Date;
-import java.util.Map;
 
 
 /**

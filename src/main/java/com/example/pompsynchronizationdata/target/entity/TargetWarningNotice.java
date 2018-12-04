@@ -1,6 +1,6 @@
 package com.example.pompsynchronizationdata.target.entity;
 
-import com.example.pompsynchronizationdata.base.entity.IdPageEntity;
+import com.example.pompsynchronizationdata.base.entity.IdEntity;
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -17,7 +17,7 @@ import javax.persistence.Table;
 @Data
 @Entity
 @Table(name = "t_warning_notice")
-public class TargetWarningNotice extends IdPageEntity {
+public class TargetWarningNotice extends IdEntity {
 
     /**
      * 用户Id

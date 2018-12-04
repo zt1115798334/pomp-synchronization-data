@@ -1,6 +1,6 @@
 package com.example.pompsynchronizationdata.source.entity;
 
-import com.example.pompsynchronizationdata.base.entity.IdPageEntity;
+import com.example.pompsynchronizationdata.base.entity.IdEntity;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @Table(name = "t_warning_rule")
-public class SourceWarningRule extends IdPageEntity {
+public class SourceWarningRule extends IdEntity {
 
 	/**
 	* 用户ID

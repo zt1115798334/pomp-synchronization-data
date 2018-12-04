@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.base.Objects;
 import org.apache.http.HttpEntity;
-import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -20,9 +19,6 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -61,15 +57,15 @@ public class HttpClientUtils {
     }
 
     public String httpGet(String url, Map<String, Object> paramMap) {
-        return _httpRequest(url, paramMap,StandardCharsets.UTF_8, 0,HttpMethod.GET,MediaType.APPLICATION_FORM_URLENCODED_VALUE);
+        return _httpRequest(url, paramMap, StandardCharsets.UTF_8, 0, "get", "application/x-www-form-urlencoded");
     }
 
     public String httpPostFrom(String url, Map<String, Object> paramMap) {
-        return _httpRequest(url, paramMap,StandardCharsets.UTF_8, 0,HttpMethod.POST,MediaType.APPLICATION_FORM_URLENCODED_VALUE);
+        return _httpRequest(url, paramMap, StandardCharsets.UTF_8, 0, "post", "application/x-www-form-urlencoded");
     }
 
     public String httpPostJson(String url, Map<String, Object> paramMap) {
-        return _httpRequest(url, paramMap,StandardCharsets.UTF_8, 0,HttpMethod.POST,MediaType.APPLICATION_JSON_VALUE);
+        return _httpRequest(url, paramMap, StandardCharsets.UTF_8, 0, "post", "application/json");
     }
 
 
@@ -81,42 +77,40 @@ public class HttpClientUtils {
      * @param reTry
      * @return
      */
-    private String _httpRequest(String url, Map<String, Object> paramMap, Charset charset, int reTry, HttpMethod httpMethod,String mediaType) {
+    private String _httpRequest(String url, Map<String, Object> paramMap, Charset charset, int reTry, String httpMethod, String mediaType) {
         long startTime = System.currentTimeMillis();
         String paramJson = JSONObject.parseObject(JSON.toJSONString(paramMap)).toJSONString();
-        logger.info("请求URl：{}", url);
-        logger.info("请求内容：{}", paramJson);
         CloseableHttpClient httpClient = null;
         CloseableHttpResponse response = null;
         String result = null;
         try {
             httpClient = getHttpClient();
 
-            if (httpMethod == HttpMethod.GET) {   //get 请求
+            if (Objects.equal(httpMethod, "get")) {   //get 请求
                 List<NameValuePair> parameters = createNameValuePair(paramMap);
                 URIBuilder builder = new URIBuilder(url);
                 builder.setParameters(parameters);
                 HttpGet httpGet = new HttpGet(builder.build());
                 httpGet.setConfig(requestConfig);
-                httpGet.setHeader(new BasicHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE));
+                httpGet.setHeader(new BasicHeader("Content-Type", "application/x-www-form-urlencoded"));
                 // 执行请求访问
                 response = httpClient.execute(httpGet);
             }
-            if (httpMethod == HttpMethod.POST) {  //post 请求
+            if (Objects.equal(httpMethod, "post")) {   //post 请求
                 HttpPost httpPost = new HttpPost(url);
                 httpPost.setConfig(requestConfig);
-                if (Objects.equal(mediaType, MediaType.APPLICATION_FORM_URLENCODED_VALUE)) {    //表单提交
+                if (Objects.equal(mediaType, "application/x-www-form-urlencoded")) {    //表单提交
                     List<NameValuePair> parameters = createNameValuePair(paramMap);
-                    httpPost.setHeader(new BasicHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE));
+                    httpPost.setHeader(new BasicHeader("Content-Type", "application/x-www-form-urlencoded"));
                     HttpEntity paramEntity = new UrlEncodedFormEntity(parameters, charset);
                     httpPost.setEntity(paramEntity);
 
                 }
-                if (Objects.equal(mediaType, MediaType.APPLICATION_JSON_VALUE)) { //json提交
+                if (Objects.equal(mediaType, "application/json")) { //json提交
                     StringEntity stringEntity = new StringEntity(paramJson, charset);
                     stringEntity.setContentEncoding(charset.toString());
-                    stringEntity.setContentType(MediaType.APPLICATION_JSON_VALUE);
-                    httpPost.setHeader(new BasicHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE));
+                    stringEntity.setContentType("application/json");
+                    httpPost.setHeader(new BasicHeader("Content-Type", "application/json;charset=UTF-8"));
                     httpPost.setEntity(stringEntity);
                 }
 
@@ -124,13 +118,12 @@ public class HttpClientUtils {
                 // 执行请求访问
             }
             if (response != null) {
-                if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+                if (response.getStatusLine().getStatusCode() == 200) {
                     HttpEntity entity = response.getEntity();
                     if (entity != null) {
                         result = EntityUtils.toString(entity, charset);
                     }
-                    logger.info("返回结果为：{}", result);
-                } else if (response.getStatusLine().getStatusCode() == HttpStatus.SC_MOVED_TEMPORARILY) {
+                } else if (response.getStatusLine().getStatusCode() == 302) {
                     // 302
                     logger.error("访问地址已经改变请更新访问地址");
                 } else {
@@ -144,7 +137,7 @@ public class HttpClientUtils {
             if (reTry < MAX_RETRY) {
                 reTry++;
                 logger.error("请求失败，尝试再次请求：{},Request URL：{}, params：{}", reTry, url, paramJson);
-                return _httpRequest(url,  paramMap, charset, reTry, httpMethod,mediaType);
+                return _httpRequest(url, paramMap, charset, reTry, httpMethod, mediaType);
             } else {
                 logger.error("请求异常，已超出最大尝试次数：{}，Request URL：{}, params：{}, Exception:{}", MAX_RETRY, url, paramJson, e);
             }
@@ -163,7 +156,6 @@ public class HttpClientUtils {
             } catch (IOException e) {
                 logger.error("关闭httpclient连接出错，异常信息：{}", e);
             }
-            logger.info("响应时间：{}", (System.currentTimeMillis() - startTime));
         }
         return result;
     }
