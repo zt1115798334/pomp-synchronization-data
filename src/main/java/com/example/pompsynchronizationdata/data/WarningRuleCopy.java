@@ -47,6 +47,7 @@ public class WarningRuleCopy extends PageHandler<SourceWarningRule> {
         ConsoleProgressBar cpb = new ConsoleProgressBar(0, size, 50, '=');
         for (int i = 0; i < size; i++) {
             SourceWarningRule sourceWarningRule = list.get(i);
+            cpb.show(i);
             try {
 
                 Long sourceWarningRuleId = sourceWarningRule.getId();
@@ -72,6 +73,7 @@ public class WarningRuleCopy extends PageHandler<SourceWarningRule> {
                     targetWarningRule.setRegion(SysConst.Region.ALL.getCode());
                     targetWarningRule.setCreatedTime(sourceWarningRuleTime);
                     targetWarningRule.setDeleteState(SysConst.DeleteState.UN_DELETED.getCode());
+                    targetWarningRuleService.save(targetWarningRule);
                     continue;
                 }
                 //处理自动预警的
@@ -309,8 +311,7 @@ public class WarningRuleCopy extends PageHandler<SourceWarningRule> {
                     targetWarningRule.setCreatedTime(sourceWarningRuleTime);
                     targetWarningRule.setDeleteState(SysConst.DeleteState.UN_DELETED.getCode());
                     targetWarningRuleService.save(targetWarningRule);
-                    cpb.show(i);
-                }
+                 }
             } catch (Exception e) {
                 log.error("出错id为" + sourceWarningRule.getId());
                 e.printStackTrace();
@@ -327,10 +328,8 @@ public class WarningRuleCopy extends PageHandler<SourceWarningRule> {
     }
 
     public static void main(String[] args) {
-        String startTimeStr = "00:00";
-        String[] split = startTimeStr.split(":");
-        LocalTime startTime = LocalTime.of(Integer.valueOf(split[0]), Integer.valueOf(split[1]));
-        System.out.println("startTime = " + startTime);
+        String s = Hanzi2Unicode.toHanzi("\\u5883\\u5185");
+        System.out.println("s = " + s);
 
     }
 }

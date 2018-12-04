@@ -1,3 +1,9 @@
+custom:
+  es: #es配置信息
+    key: zkdj_yuQing
+    host: http://114.55.179.202:8199
+    app-id: $2y$10$0IOTn53Ps
+
 spring:
   jpa:
     database: MYSQL
