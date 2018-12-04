@@ -20,7 +20,6 @@ import java.util.List;
  * description:
  */
 @Component
-@Slf4j
 public class UserCopy extends PageHandler<SourceUser> {
 
     @Autowired
@@ -91,7 +90,7 @@ public class UserCopy extends PageHandler<SourceUser> {
             targetUser.setOrderCount(sourceUser.getOrderCount());
             targetUser.setWarningVoice(sourceUser.getWarningVoice());
             targetUser.setOverseasSitesDefaultState(sourceUser.getOverseasSitesDefaultState());
-//            targetUserService.save(targetUser);
+            targetUserService.save(targetUser);
             cpb.show(i);
         }
         return size;

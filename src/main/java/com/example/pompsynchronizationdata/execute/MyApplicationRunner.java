@@ -1,13 +1,13 @@
 package com.example.pompsynchronizationdata.execute;
 
 import com.example.pompsynchronizationdata.data.UserCopy;
+import com.example.pompsynchronizationdata.data.WarningNoticeCopy;
+import com.example.pompsynchronizationdata.data.WarningRuleCopy;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
-
-import java.util.concurrent.FutureTask;
 
 /**
  * Created with IntelliJ IDEA.
@@ -23,15 +23,22 @@ public class MyApplicationRunner implements ApplicationRunner {
     @Autowired
     private UserCopy userCopy;
 
+    @Autowired
+    private WarningNoticeCopy warningNoticeCopy;
+
+    @Autowired
+    private WarningRuleCopy warningRuleCopy;
+
     @Override
     public void run(ApplicationArguments args) throws Exception {
         log.info("开始同步数据了...");
 
-        new FutureTask<>(() -> {
-            System.out.println("MyApplicationRunner.run");
-            userCopy.handle();
-            return 0;
-        }).run();
+//        log.info("开始同步用户信息数据...");
+//        userCopy.handle();
+//        log.info("开始同步预警通知信息数据...");
+//        warningNoticeCopy.handle();
+        log.info("开始同步预警规则信息数据...");
+        warningRuleCopy.handle();
 
     }
 }

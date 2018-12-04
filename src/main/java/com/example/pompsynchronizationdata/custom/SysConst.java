@@ -618,7 +618,7 @@ public class SysConst {
     /**
      * 预警通知类型
      */
-    public enum WaringNoticeType {
+    public enum WarningNoticeType {
 
         DIALOG("dialog", "弹框"),
         EMAIL("email", "邮件"),
@@ -629,7 +629,7 @@ public class SysConst {
         private String type;
         private String name;
 
-        WaringNoticeType(String type, String name) {
+        WarningNoticeType(String type, String name) {
             this.type = type;
             this.name = name;
         }

@@ -18,7 +18,7 @@ spring:
       connection-timeout: 30000
       connection-test-query: SELECT 1
     target:
-      jdbc-url: jdbc:mysql://127.0.0.1:3306/pomp?characterEncoding=utf8&useSSL=false
+      jdbc-url: jdbc:mysql://127.0.0.1:3306/pomp_prod?characterEncoding=utf8&useSSL=false
       username: root
       password: root
       minimum-idle: 5
