@@ -25,10 +25,17 @@ public class TargetWarningServiceImpl implements TargetWarningService {
 
     @Override
     public TargetWarning save(TargetWarning targetWarning) {
-        String articleId = targetWarning.getArticleId();
-        Long userId = targetWarning.getUserId();
-        Optional<TargetWarning> targetWarningOptional = targetWarningRepository.findByArticleIdAndUserId(articleId, userId);
-        return targetWarningOptional.orElseGet(() -> targetWarningRepository.save(targetWarning));
+        try {
+            String articleId = targetWarning.getArticleId();
+            Long userId = targetWarning.getUserId();
+            Optional<TargetWarning> targetWarningOptional = targetWarningRepository.findByArticleIdAndUserId(articleId, userId);
+            return targetWarningOptional.orElseGet(() -> targetWarningRepository.save(targetWarning));
+        } catch (Exception e) {
+            System.out.println("报错的信息id为" + targetWarning.getArticleId() + "用户id为:" + targetWarning.getUserId());
+            e.printStackTrace();
+            return null;
+        }
+
     }
 
     @Override

@@ -1,9 +1,6 @@
 package com.example.pompsynchronizationdata.execute;
 
-import com.example.pompsynchronizationdata.data.UserCopy;
-import com.example.pompsynchronizationdata.data.WarningCopy;
-import com.example.pompsynchronizationdata.data.WarningNoticeCopy;
-import com.example.pompsynchronizationdata.data.WarningRuleCopy;
+import com.example.pompsynchronizationdata.data.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -33,6 +30,9 @@ public class MyApplicationRunner implements ApplicationRunner {
     @Autowired
     private WarningCopy warningCopy;
 
+    @Autowired
+    private FavoritesCopy favoritesCopy;
+
     @Override
     public void run(ApplicationArguments args) throws Exception {
         log.info("开始同步数据了...");
@@ -45,8 +45,10 @@ public class MyApplicationRunner implements ApplicationRunner {
 //        log.info("开始同步预警规则信息数据...");
 //        warningRuleCopy.handle();
 
-        log.info("开始同步预警文章信息数据...");
-        warningCopy.handle();
+//        log.info("开始同步预警文章信息数据...");
+//        warningCopy.handle();
 
+        log.info("开始同步收藏文章信息数据...");
+        favoritesCopy.handle();
     }
 }

@@ -83,54 +83,63 @@ public class WarningCopy extends PageHandler<SourceWarning> {
 
 
                 Integer carrieCode;
-                switch (sourceWarningCarrie) {
-                    case "综合":
-                        carrieCode = SysConst.Carrie.Carrie_2000.getCode();
-                        break;
-                    case "新闻":
-                        carrieCode = SysConst.Carrie.Carrie_2001.getCode();
-                        break;
-                    case "博客":
-                        carrieCode = SysConst.Carrie.Carrie_2002.getCode();
-                        break;
-                    case "论坛":
-                        carrieCode = SysConst.Carrie.Carrie_2003.getCode();
-                        break;
-                    case "微博":
-                        carrieCode = SysConst.Carrie.Carrie_2004.getCode();
-                        break;
-                    case "微信":
-                        carrieCode = SysConst.Carrie.Carrie_2005.getCode();
-                        break;
-                    case "QQ群":
-                        carrieCode = SysConst.Carrie.Carrie_2006.getCode();
-                        break;
-                    case "电子报":
-                        carrieCode = SysConst.Carrie.Carrie_2007.getCode();
-                        break;
-                    case "视频":
-                        carrieCode = SysConst.Carrie.Carrie_2008.getCode();
-                        break;
-                    case "手机wap":
-                        carrieCode = SysConst.Carrie.Carrie_2009.getCode();
-                        break;
-                    case "其他":
-                        carrieCode = SysConst.Carrie.Carrie_2999.getCode();
-                        break;
-                    default:
-                        System.out.println("载体无法解析 = " + sourceWarningCarrie);
-                        carrieCode = SysConst.Carrie.Carrie_2999.getCode();
-                        break;
+                if (StringUtils.isNotEmpty(sourceWarningCarrie)) {
+                    switch (sourceWarningCarrie) {
+                        case "综合":
+                            carrieCode = SysConst.Carrie.Carrie_2000.getCode();
+                            break;
+                        case "新闻":
+                            carrieCode = SysConst.Carrie.Carrie_2001.getCode();
+                            break;
+                        case "博客":
+                            carrieCode = SysConst.Carrie.Carrie_2002.getCode();
+                            break;
+                        case "论坛":
+                            carrieCode = SysConst.Carrie.Carrie_2003.getCode();
+                            break;
+                        case "微博":
+                            carrieCode = SysConst.Carrie.Carrie_2004.getCode();
+                            break;
+                        case "微信":
+                            carrieCode = SysConst.Carrie.Carrie_2005.getCode();
+                            break;
+                        case "QQ群":
+                            carrieCode = SysConst.Carrie.Carrie_2006.getCode();
+                            break;
+                        case "电子报":
+                            carrieCode = SysConst.Carrie.Carrie_2007.getCode();
+                            break;
+                        case "视频":
+                            carrieCode = SysConst.Carrie.Carrie_2008.getCode();
+                            break;
+                        case "手机wap":
+                            carrieCode = SysConst.Carrie.Carrie_2009.getCode();
+                            break;
+                        case "其他":
+                            carrieCode = SysConst.Carrie.Carrie_2999.getCode();
+                            break;
+                        default:
+                            carrieCode = esArticle.getCarrie();
+                            break;
+                    }
+                }else{
+                    carrieCode = esArticle.getCarrie();
                 }
+
                 Integer region = SysConst.Region.REGION_INNER.getCode();
-                switch (sourceWarningCountry) {
-                    case "境内":
-                        region = SysConst.Region.REGION_INNER.getCode();
-                        break;
-                    case "境外":
-                        region = SysConst.Region.REGION_OUTSIDE.getCode();
-                        break;
+                if (StringUtils.isNotEmpty(sourceWarningCountry)) {
+                    switch (sourceWarningCountry) {
+                        case "境内":
+                            region = SysConst.Region.REGION_INNER.getCode();
+                            break;
+                        case "境外":
+                            region = SysConst.Region.REGION_OUTSIDE.getCode();
+                            break;
+                    }
+                }else{
+                    region = esArticle.getRegion();
                 }
+
                 Integer warningType = SysConst.WarningType.MACHINE.getCode();
                 if (sourceWarningMode == 0) { //机器
                     warningType = SysConst.WarningType.MACHINE.getCode();
