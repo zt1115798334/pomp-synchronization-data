@@ -45,6 +45,8 @@ public class MyApplicationRunner implements ApplicationRunner {
     @Autowired
     private EventCopy eventCopy;
 
+    @Autowired
+    private BriefingNoticeCopy briefingNoticeCopy;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -74,8 +76,11 @@ public class MyApplicationRunner implements ApplicationRunner {
 //        log.info("step 8 -- 开始同步专题信息数据...");
 //        columnSpecialCopy.handle();
 
-        log.info("step 9 -- 开始同步事件信息数据...");
-        eventCopy.handle();
+//        log.info("step 9 -- 开始同步事件信息数据...");
+//        eventCopy.handle();
+
+        log.info("step 10 -- 开始同步报告通知人信息数据...");
+        briefingNoticeCopy.handle();
 
     }
 }
