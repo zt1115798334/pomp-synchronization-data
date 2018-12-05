@@ -1,17 +1,15 @@
 package com.example.pompsynchronizationdata.source.service;
 
 import com.example.pompsynchronizationdata.base.service.BaseService;
-import com.example.pompsynchronizationdata.source.entity.SourceWarningRule;
-
-import java.util.List;
+import com.example.pompsynchronizationdata.source.entity.SourceColumn;
 
 /**
  * Created with IntelliJ IDEA.
  *
  * @author zhang tong
- * date: 2018/12/03 15:53
+ * date: 2018/12/04 17:52
  * description:
  */
-public interface SourceWarningRuleService extends BaseService<SourceWarningRule> {
+public interface SourceColumnService extends BaseService<SourceColumn> {
 
 }

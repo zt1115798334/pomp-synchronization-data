@@ -1,6 +1,7 @@
 package com.example.pompsynchronizationdata.source.service.impl;
 
 import com.example.pompsynchronizationdata.base.service.PageUtils;
+import com.example.pompsynchronizationdata.custom.SysConst;
 import com.example.pompsynchronizationdata.source.entity.SourceWarningRule;
 import com.example.pompsynchronizationdata.source.repo.SourceWarningRuleRepository;
 import com.example.pompsynchronizationdata.source.service.SourceWarningRuleService;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -31,4 +33,6 @@ public class SourceWarningRuleServiceImpl implements SourceWarningRuleService {
         PageRequest pageRequest = PageUtils.buildPageRequest(pageNumber, pageSize);
         return sourceWarningRuleRepository.findAll(null, pageRequest);
     }
+
+
 }

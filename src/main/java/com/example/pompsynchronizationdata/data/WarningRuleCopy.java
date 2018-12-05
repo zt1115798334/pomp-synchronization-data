@@ -22,6 +22,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -63,6 +64,13 @@ public class WarningRuleCopy extends PageHandler<SourceWarningRule> {
 
                 TargetWarningRule targetWarningRule = new TargetWarningRule();
                 if (Objects.equal(sourceWarningRuleName, "手动预警") && sourceWarningRuleRuleType == 1) {   //手动预警的
+
+
+                    Optional<TargetWarningRule> warningRuleOptional = targetWarningRuleService.findHandleByUserId(sourceWarningRuleUserId);
+
+                    if (warningRuleOptional.isPresent()) {
+                        continue;
+                    }
                     targetWarningRule.setRoleTitle("手动预警");
                     targetWarningRule.setId(sourceWarningRuleId);
                     targetWarningRule.setUserId(sourceWarningRuleUserId);

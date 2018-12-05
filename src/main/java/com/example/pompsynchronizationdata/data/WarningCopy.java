@@ -7,6 +7,8 @@ import com.example.pompsynchronizationdata.es.service.EsArticleService;
 import com.example.pompsynchronizationdata.source.entity.SourceWarning;
 import com.example.pompsynchronizationdata.source.service.SourceWarningService;
 import com.example.pompsynchronizationdata.target.entity.TargetWarning;
+import com.example.pompsynchronizationdata.target.entity.TargetWarningRule;
+import com.example.pompsynchronizationdata.target.service.TargetWarningRuleService;
 import com.example.pompsynchronizationdata.target.service.TargetWarningService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -36,6 +39,8 @@ public class WarningCopy extends PageHandler<SourceWarning> {
 
     @Autowired
     private TargetWarningService targetWarningService;
+
+    private TargetWarningRuleService targetWarningRuleService;
 
     @Autowired
     private EsArticleService esArticleService;
@@ -122,7 +127,7 @@ public class WarningCopy extends PageHandler<SourceWarning> {
                             carrieCode = esArticle.getCarrie();
                             break;
                     }
-                }else{
+                } else {
                     carrieCode = esArticle.getCarrie();
                 }
 
@@ -136,7 +141,7 @@ public class WarningCopy extends PageHandler<SourceWarning> {
                             region = SysConst.Region.REGION_OUTSIDE.getCode();
                             break;
                     }
-                }else{
+                } else {
                     region = esArticle.getRegion();
                 }
 
@@ -147,6 +152,14 @@ public class WarningCopy extends PageHandler<SourceWarning> {
                 if (sourceWarningMode == 1) { //手动
                     warningType = SysConst.WarningType.ARTIFICIAL.getCode();
                 }
+
+                if (sourceWarningWarningRuleId == null) {
+                    Optional<TargetWarningRule> warningRuleOptional = targetWarningRuleService.findHandleByUserId(Long.valueOf(sourceWarningUserId));
+                    if (warningRuleOptional.isPresent()) {
+                        sourceWarningWarningRuleId = warningRuleOptional.get().getId();
+                    }
+                }
+
 //
                 TargetWarning targetWarning = new TargetWarning();
                 targetWarning.setArticleId(sourceWarningArticleId);
@@ -175,6 +188,7 @@ public class WarningCopy extends PageHandler<SourceWarning> {
                             break;
                     }
                 }
+
                 targetWarning.setWarningLevel(warningLevel);
 
 
@@ -197,7 +211,9 @@ public class WarningCopy extends PageHandler<SourceWarning> {
                     targetWarning.setSendEmailState(SysConst.SendState.SENT.getCode());
                     targetWarning.setSendEmailTime(sourceWarningEmailTime);
                 }
-                targetWarningService.save(targetWarning);
+                if (sourceWarningWarningRuleId != null) {
+                    targetWarningService.save(targetWarning);
+                }
             }
             cpb.show(i);
         }

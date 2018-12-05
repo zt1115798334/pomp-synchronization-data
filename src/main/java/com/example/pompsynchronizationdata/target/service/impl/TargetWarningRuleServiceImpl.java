@@ -1,15 +1,14 @@
 package com.example.pompsynchronizationdata.target.service.impl;
 
-import com.example.pompsynchronizationdata.base.service.PageUtils;
+import com.example.pompsynchronizationdata.custom.SysConst;
 import com.example.pompsynchronizationdata.target.entity.TargetWarningRule;
 import com.example.pompsynchronizationdata.target.repo.TargetWarningRuleRepository;
 import com.example.pompsynchronizationdata.target.service.TargetWarningRuleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 /**
  * Created with IntelliJ IDEA.
@@ -28,5 +27,10 @@ public class TargetWarningRuleServiceImpl implements TargetWarningRuleService {
     @Override
     public TargetWarningRule save(TargetWarningRule targetWarningRule) {
         return targetWarningRuleRepository.save(targetWarningRule);
+    }
+
+    @Override
+    public Optional<TargetWarningRule> findHandleByUserId(Long userId) {
+        return targetWarningRuleRepository.findByUserIdAndWarningType(userId, SysConst.WarningType.ARTIFICIAL.getCode());
     }
 }

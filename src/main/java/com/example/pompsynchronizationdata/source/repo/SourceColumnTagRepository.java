@@ -1,18 +1,16 @@
 package com.example.pompsynchronizationdata.source.repo;
 
-import com.example.pompsynchronizationdata.source.entity.SourceWarningRule;
+import com.example.pompsynchronizationdata.source.entity.SourceColumnTag;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.CrudRepository;
-
-import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
  *
  * @author zhang tong
- * date: 2018/12/03 15:53
+ * date: 2018/12/04 17:52
  * description:
  */
-public interface SourceWarningRuleRepository extends CrudRepository<SourceWarningRule,Long>,
-        JpaSpecificationExecutor<SourceWarningRule> {
+public interface SourceColumnTagRepository extends CrudRepository<SourceColumnTag,Long>,
+        JpaSpecificationExecutor<SourceColumnTag> {
 }
