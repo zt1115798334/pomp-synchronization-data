@@ -4,14 +4,17 @@ import com.example.pompsynchronizationdata.custom.ConsoleProgressBar;
 import com.example.pompsynchronizationdata.custom.SysConst;
 import com.example.pompsynchronizationdata.source.entity.SourceBriefingArticle;
 import com.example.pompsynchronizationdata.source.service.SourceBriefingArticleService;
+import com.example.pompsynchronizationdata.target.entity.TargetBriefing;
 import com.example.pompsynchronizationdata.target.entity.TargetBriefingArticle;
 import com.example.pompsynchronizationdata.target.service.TargetBriefingArticleService;
+import com.example.pompsynchronizationdata.target.service.TargetBriefingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created with IntelliJ IDEA.
@@ -27,6 +30,9 @@ public class BriefingArticleCurrencyCopy extends PageHandler<SourceBriefingArtic
     private SourceBriefingArticleService sourceBriefingArticleService;
 
     @Autowired
+    private TargetBriefingService targetBriefingService;
+
+    @Autowired
     private TargetBriefingArticleService targetBriefingArticleService;
 
     @Override
@@ -37,19 +43,22 @@ public class BriefingArticleCurrencyCopy extends PageHandler<SourceBriefingArtic
             cpb.show(i);
             SourceBriefingArticle sourceBriefingArticle = list.get(i);
             Long sourceBriefingArticleBriefingId = sourceBriefingArticle.getId().getBriefingId();
-            String sourceBriefingArticleArticleId = sourceBriefingArticle.getId().getArticleId();
-            LocalDateTime sourceBriefingArticleTime = sourceBriefingArticle.getTime();
-            Long sourceBriefingArticleInsertType = sourceBriefingArticle.getInsertType();
+            Optional<TargetBriefing> briefingOptional = targetBriefingService.findById(sourceBriefingArticleBriefingId);
+            if (briefingOptional.isPresent()) {
+                String sourceBriefingArticleArticleId = sourceBriefingArticle.getId().getArticleId();
+                LocalDateTime sourceBriefingArticleTime = sourceBriefingArticle.getTime();
+                Long sourceBriefingArticleInsertType = sourceBriefingArticle.getInsertType();
 
+                TargetBriefingArticle targetBriefingArticle = new TargetBriefingArticle();
+                targetBriefingArticle.setBriefingId(sourceBriefingArticleBriefingId);
+                targetBriefingArticle.setArticleId(sourceBriefingArticleArticleId);
+                targetBriefingArticle.setCreatedTime(sourceBriefingArticleTime);
+                targetBriefingArticle.setTemplateType(SysConst.TemplateType.CURRENCY_EDITION.getCode());
+                targetBriefingArticle.setTemplateNumber(SysConst.TemplateNumber.CURRENCY_EDITION_2.getCode());
 
-            TargetBriefingArticle targetBriefingArticle = new TargetBriefingArticle();
-            targetBriefingArticle.setBriefingId(sourceBriefingArticleBriefingId);
-            targetBriefingArticle.setArticleId(sourceBriefingArticleArticleId);
-            targetBriefingArticle.setCreatedTime(sourceBriefingArticleTime);
-            targetBriefingArticle.setTemplateType(SysConst.TemplateType.CURRENCY_EDITION.getCode());
-            targetBriefingArticle.setTemplateNumber(SysConst.TemplateNumber.CURRENCY_EDITION_2.getCode());
+                targetBriefingArticleService.save(targetBriefingArticle);
+            }
 
-            targetBriefingArticleService.save(targetBriefingArticle);
         }
         return size;
     }

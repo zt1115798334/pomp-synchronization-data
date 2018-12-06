@@ -2,7 +2,7 @@
 <configuration debug="false">
     <!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径-->
     <!--<property name="LOG_HOME" value="D:/log/spring-boot-integrate" />-->
-    <substitutionProperty name="LOG_HOME" value="D:/log/pomp-synchronization-data-log"/>
+    <substitutionProperty name="LOG_HOME" value="D:/log/pomp-data1-synchronization-data-log"/>
     <!--输出到控制台-->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
          <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
@@ -17,7 +17,7 @@
     <appender name="FILE_INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <!--日志文件输出的文件名-->
-            <FileNamePattern>${LOG_HOME}/pomp-synchronization-data-log.%d{yyyy-MM-dd}.%i.log</FileNamePattern>
+            <FileNamePattern>${LOG_HOME}/pomp-data1-synchronization-data-log.%d{yyyy-MM-dd}.%i.log</FileNamePattern>
             <!--日志文件保留天数-->
             <maxFileSize>10MB</maxFileSize>
             <MaxHistory>30</MaxHistory>
@@ -37,7 +37,7 @@
     <appender name="FILE_ERR" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <!--日志文件输出的文件名-->
-            <FileNamePattern>${LOG_HOME}/pomp-synchronization-data-log-err.%d{yyyy-MM-dd}.%i.log</FileNamePattern>
+            <FileNamePattern>${LOG_HOME}/pomp-data1-synchronization-data-log-err.%d{yyyy-MM-dd}.%i.log</FileNamePattern>
             <!--日志文件保留天数-->
             <maxFileSize>10MB</maxFileSize>
             <MaxHistory>30</MaxHistory>

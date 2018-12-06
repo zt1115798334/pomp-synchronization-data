@@ -3,6 +3,8 @@ package com.example.pompsynchronizationdata.base.service;
 import com.example.pompsynchronizationdata.custom.SysConst;
 import org.springframework.data.domain.Page;
 
+import java.util.Optional;
+
 /**
  * Created with IntelliJ IDEA.
  *
@@ -57,8 +59,17 @@ public interface BaseService<T> {
         return null;
     }
 
+    default Iterable<T> saveAll(Iterable<T> t) {
+        return t;
+    }
+
+
     default Page<T> findPageByEntity(int pageNumber, int pageSize) {
         return null;
+    }
+
+    default Optional<T> findById(Long id) {
+        return Optional.empty();
     }
 
 }

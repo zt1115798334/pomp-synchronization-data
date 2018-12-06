@@ -2,9 +2,7 @@ package com.example.pompsynchronizationdata.target.service;
 
 
 import com.example.pompsynchronizationdata.base.service.BaseService;
-import com.example.pompsynchronizationdata.target.entity.TargetBriefing;
-
-import java.time.LocalDateTime;
+import com.example.pompsynchronizationdata.target.entity.TargetBriefingTemplate;
 
 /**
  * Created with IntelliJ IDEA.
@@ -13,8 +11,6 @@ import java.time.LocalDateTime;
  * date: 2018/12/05 16:54
  * description:
  */
-public interface TargetBriefingService extends BaseService<TargetBriefing> {
-
-    void deleteByLT(LocalDateTime localDateTime);
+public interface TargetBriefingTemplateService extends BaseService<TargetBriefingTemplate> {
 
 }
