@@ -4,8 +4,6 @@ import com.example.pompsynchronizationdata.PompSynchronizationDataApplicationTes
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import static org.junit.Assert.*;
-
 /**
  * Created with IntelliJ IDEA.
  *
@@ -13,12 +11,12 @@ import static org.junit.Assert.*;
  * date: 2018/12/5 14:33
  * description:
  */
-public class ArtificialWarningRuleAddTest extends PompSynchronizationDataApplicationTests {
+public class UserRelatedSettingAddTest extends PompSynchronizationDataApplicationTests {
 
     @Autowired
-    private ArtificialWarningRuleAdd artificialWarningRuleAdd;
+    private UserRelatedSettingAdd userRelatedSettingAdd;
     @Test
     public void handle() {
-        artificialWarningRuleAdd.handle();
+        userRelatedSettingAdd.handle();
     }
 }
