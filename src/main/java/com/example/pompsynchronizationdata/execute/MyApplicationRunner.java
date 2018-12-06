@@ -52,6 +52,12 @@ public class MyApplicationRunner implements ApplicationRunner {
     private BriefingCopy briefingCopy;
 
     @Autowired
+    private BriefingArticleMediaCopy briefingArticleMediaCopy;
+
+    @Autowired
+    private BriefingArticleCurrencyCopy briefingArticleCurrencyCopy;
+
+    @Autowired
     private UserRelatedSettingAdd userRelatedSettingAdd;
 
 
@@ -89,8 +95,15 @@ public class MyApplicationRunner implements ApplicationRunner {
 //        log.info("step 10 -- 开始同步报告设置信息数据...");
 //        briefingSettingCopy.handle();
 
-        log.info("step 11 -- 开始同步报告信息数据...");
-        briefingCopy.handle();
+//        log.info("step 11 -- 开始同步报告信息数据...");
+//        briefingCopy.handle();
+
+        log.info("step 12 -- 开始同步媒体报告文章信息数据...");
+        briefingArticleMediaCopy.handle();
+
+
+        log.info("step 13 -- 开始同步通用报告文章信息数据...");
+        briefingArticleCurrencyCopy.handle();
 
 
 //        log.info("step 999 -- 开始添加用户的手动预警信息，存在的则不添加");
