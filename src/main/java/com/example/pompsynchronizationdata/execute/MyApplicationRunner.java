@@ -48,6 +48,8 @@ public class MyApplicationRunner implements ApplicationRunner {
     @Autowired
     private BriefingSettingCopy briefingSettingCopy;
 
+    @Autowired
+    private BriefingCopy briefingCopy;
 
     @Autowired
     private UserRelatedSettingAdd userRelatedSettingAdd;
@@ -87,9 +89,12 @@ public class MyApplicationRunner implements ApplicationRunner {
 //        log.info("step 10 -- 开始同步报告设置信息数据...");
 //        briefingSettingCopy.handle();
 
+        log.info("step 11 -- 开始同步报告信息数据...");
+        briefingCopy.handle();
 
-        log.info("step 999 -- 开始添加用户的手动预警信息，存在的则不添加");
-        userRelatedSettingAdd.handle();  //他需要warningRuleCopy.handle(); 执行后执行，同时修改实体类TargetWarningRule 继承IdIdentityEntity
+
+//        log.info("step 999 -- 开始添加用户的手动预警信息，存在的则不添加");
+//        userRelatedSettingAdd.handle();  //他需要warningRuleCopy.handle(); 执行后执行，同时修改实体类TargetWarningRule 继承IdIdentityEntity
 
 
     }
