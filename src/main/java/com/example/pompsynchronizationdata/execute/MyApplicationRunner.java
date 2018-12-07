@@ -102,7 +102,7 @@ public class MyApplicationRunner implements ApplicationRunner {
 //
 //        log.info("step 6 -- 开始同步报告通知人信息数据...");
 //        briefingNoticeCopy.handle();
-////
+//
 //        log.info("-- 开始同步报告设置信息数据...");
 //        briefingSettingCopy.handle();
 //
@@ -114,7 +114,7 @@ public class MyApplicationRunner implements ApplicationRunner {
 //
 //        log.info("-- 开始同步媒体报告文章信息数据...");
 //        briefingArticleMediaCopy.handle();
-//
+
 //        log.info("-- 开始同步通用报告文章信息数据...");
 //        briefingArticleCurrencyCopy.handle();
 //
@@ -124,8 +124,8 @@ public class MyApplicationRunner implements ApplicationRunner {
 //        log.info("step 7 -- 开始同步过滤信息初始化数据...");
 //        filterBoxCopy.handle();
 //
-        log.info("step 7 -- 开始同步订阅app信息初始化数据...");
-        userAppCopy.handle();
+//        log.info("step 7 -- 开始同步订阅app信息初始化数据...");
+//        userAppCopy.handle();
 
 
 //        log.info("step 999 -- 开始添加用户的手动预警信息，存在的则不添加");

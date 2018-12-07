@@ -56,7 +56,7 @@ public class BriefingCopy extends PageHandler<SourceBriefing> {
             LocalDateTime sourceBriefingEndDateTime = sourceBriefing.getEndDateTime();
 
 
-            if (sourceBriefingTime != null) {
+            if (sourceBriefingTime != null && sourceBriefingUserId != null) {
 
                 Long id = sourceBriefingId;
                 Long userId = Long.valueOf(sourceBriefingUserId);
