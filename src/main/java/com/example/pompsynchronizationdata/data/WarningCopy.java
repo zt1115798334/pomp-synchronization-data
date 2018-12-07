@@ -40,6 +40,7 @@ public class WarningCopy extends PageHandler<SourceWarning> {
     @Autowired
     private TargetWarningService targetWarningService;
 
+    @Autowired
     private TargetWarningRuleService targetWarningRuleService;
 
     @Autowired

@@ -80,111 +80,117 @@ public class ColumnSpecialCopy extends PageHandler<SourceColumnTag> {
             Integer appShowState = SysConst.ShowState.DISPLAY.getCode();
             Integer appTopState = SysConst.TopState.UN_TOP.getCode();
             LocalDateTime appTopTime = null;
+            if (sourceColumnTagType != null && sourceColumnTagType == 0) {//旧版标签
+                if (StringUtils.isNotEmpty(sourceColumnTagWhereAs)) {
+                    JSONObject whereAsJSON = JSONObject.parseObject(sourceColumnTagWhereAs);
+                    if (whereAsJSON != null) {
+                        if (whereAsJSON.containsKey("carrie")) {    //载体
+                            JSONArray carrieJSONArray = whereAsJSON.getJSONArray("carrie");
+                            if (carrieJSONArray != null) {
+                                String carrieCodeStr = carrieJSONArray.stream()
+                                        .map(String::valueOf)
+                                        .map(carrie -> {
+                                            Integer carrieCode = 0;
+                                            switch (carrie) {
+                                                case "综合":
+                                                    carrieCode = SysConst.Carrie.Carrie_2000.getCode();
+                                                    break;
+                                                case "新闻":
+                                                    carrieCode = SysConst.Carrie.Carrie_2001.getCode();
+                                                    break;
+                                                case "博客":
+                                                    carrieCode = SysConst.Carrie.Carrie_2002.getCode();
+                                                    break;
+                                                case "论坛":
+                                                    carrieCode = SysConst.Carrie.Carrie_2003.getCode();
+                                                    break;
+                                                case "微博":
+                                                    carrieCode = SysConst.Carrie.Carrie_2004.getCode();
+                                                    break;
+                                                case "微信":
+                                                    carrieCode = SysConst.Carrie.Carrie_2005.getCode();
+                                                    break;
+                                                case "QQ群":
+                                                    carrieCode = SysConst.Carrie.Carrie_2006.getCode();
+                                                    break;
+                                                case "电子报":
+                                                    carrieCode = SysConst.Carrie.Carrie_2007.getCode();
+                                                    break;
+                                                case "视频":
+                                                    carrieCode = SysConst.Carrie.Carrie_2008.getCode();
+                                                    break;
+                                                case "手机wap":
+                                                    carrieCode = SysConst.Carrie.Carrie_2009.getCode();
+                                                    break;
+                                                case "其他":
+                                                    carrieCode = SysConst.Carrie.Carrie_2999.getCode();
+                                                    break;
+                                                default:
+                                                    carrieCode = SysConst.Carrie.Carrie_2999.getCode();
+                                                    break;
+                                            }
+                                            return carrieCode;
+                                        })
+                                        .map(String::valueOf)
+                                        .collect(Collectors.joining(","));
+                                carrieStr = MStringUtils.decorateStr(carrieCodeStr);
+                            }
 
-            if (sourceColumnTagType == 0) {//旧版标签
-                JSONObject whereAsJSON = JSONObject.parseObject(sourceColumnTagWhereAs);
+                        }
+                        if (whereAsJSON.containsKey("nature")) {    //情感
+                            String natureStr = whereAsJSON.getString("nature");
+                            switch (natureStr) {
+                                case "正面":     //正面
+                                    emotion = SysConst.Emotion.POSITIVE.getType();
+                                    break;
+                                case "负面":     //负面
+                                    emotion = SysConst.Emotion.NEGATIVE.getType();
+                                    break;
+                                case "中性":     //中性
+                                    emotion = SysConst.Emotion.NEUTRAL.getType();
+                                    break;
+                                case "全部":     //全部
+                                    emotion = SysConst.Emotion.ALL.getType();
+                                    break;
+                                case "相关":     //全部
+                                    emotion = SysConst.Emotion.ALL.getType();
+                                    break;
+                                case "舆情":     //中性
+                                    emotion = SysConst.Emotion.NEUTRAL.getType();
+                                    break;
+                                default:
+                                    emotion = SysConst.Emotion.ALL.getType();
+                                    break;
+                            }
+                        }
 
-                if (whereAsJSON.containsKey("carrie")) {    //载体
-                    JSONArray carrieJSONArray = whereAsJSON.getJSONArray("carrie");
-                    String carrieCodeStr = carrieJSONArray.stream()
-                            .map(String::valueOf)
-                            .map(carrie -> {
-                                Integer carrieCode = 0;
-                                switch (carrie) {
-                                    case "综合":
-                                        carrieCode = SysConst.Carrie.Carrie_2000.getCode();
-                                        break;
-                                    case "新闻":
-                                        carrieCode = SysConst.Carrie.Carrie_2001.getCode();
-                                        break;
-                                    case "博客":
-                                        carrieCode = SysConst.Carrie.Carrie_2002.getCode();
-                                        break;
-                                    case "论坛":
-                                        carrieCode = SysConst.Carrie.Carrie_2003.getCode();
-                                        break;
-                                    case "微博":
-                                        carrieCode = SysConst.Carrie.Carrie_2004.getCode();
-                                        break;
-                                    case "微信":
-                                        carrieCode = SysConst.Carrie.Carrie_2005.getCode();
-                                        break;
-                                    case "QQ群":
-                                        carrieCode = SysConst.Carrie.Carrie_2006.getCode();
-                                        break;
-                                    case "电子报":
-                                        carrieCode = SysConst.Carrie.Carrie_2007.getCode();
-                                        break;
-                                    case "视频":
-                                        carrieCode = SysConst.Carrie.Carrie_2008.getCode();
-                                        break;
-                                    case "手机wap":
-                                        carrieCode = SysConst.Carrie.Carrie_2009.getCode();
-                                        break;
-                                    case "其他":
-                                        carrieCode = SysConst.Carrie.Carrie_2999.getCode();
-                                        break;
-                                    default:
-                                        carrieCode = SysConst.Carrie.Carrie_2999.getCode();
-                                        break;
-                                }
-                                return carrieCode;
-                            })
-                            .map(String::valueOf)
-                            .collect(Collectors.joining(","));
-                    carrieStr = MStringUtils.decorateStr(carrieCodeStr);
-                }
-                if (whereAsJSON.containsKey("nature")) {    //情感
-                    String natureStr = whereAsJSON.getString("nature");
-                    switch (natureStr) {
-                        case "正面":     //正面
-                            emotion = SysConst.Emotion.POSITIVE.getType();
-                            break;
-                        case "负面":     //负面
-                            emotion = SysConst.Emotion.NEGATIVE.getType();
-                            break;
-                        case "中性":     //中性
-                            emotion = SysConst.Emotion.NEUTRAL.getType();
-                            break;
-                        case "全部":     //全部
-                            emotion = SysConst.Emotion.ALL.getType();
-                            break;
-                        case "相关":     //全部
-                            emotion = SysConst.Emotion.ALL.getType();
-                            break;
-                        case "舆情":     //中性
-                            emotion = SysConst.Emotion.NEUTRAL.getType();
-                            break;
-                        default:
-                            emotion = SysConst.Emotion.ALL.getType();
-                            break;
+                        if (whereAsJSON.containsKey("search")) {
+                            JSONObject searchJSON = whereAsJSON.getJSONObject("search");
+                            String all = searchJSON.containsKey("all") ? searchJSON.getString("all") : "";
+                            String title = searchJSON.containsKey("title") ? searchJSON.getString("title") : "";
+                            String content = searchJSON.containsKey("content") ? searchJSON.getString("content") : "";
+                            if (StringUtils.isNotEmpty(all)) {
+                                searchArea = SysConst.SearchArea.ALL.getType();
+                                relatedWords = all;
+                            }
+                            if (StringUtils.isNotEmpty(title)) {
+                                searchArea = SysConst.SearchArea.TITLE.getType();
+                                relatedWords = title;
+                            }
+                            if (StringUtils.isNotEmpty(content)) {
+                                searchArea = SysConst.SearchArea.CONTENT.getType();
+                                relatedWords = content;
+                            }
+                            if (StringUtils.isNotEmpty(sourceColumnTagRelatedWord)) {
+                                relatedWords = sourceColumnTagRelatedWord;
+                            }
+                        }
                     }
-                }
 
-                if (whereAsJSON.containsKey("search")) {
-                    JSONObject searchJSON = whereAsJSON.getJSONObject("search");
-                    String all = searchJSON.containsKey("all") ? searchJSON.getString("all") : "";
-                    String title = searchJSON.containsKey("title") ? searchJSON.getString("title") : "";
-                    String content = searchJSON.containsKey("content") ? searchJSON.getString("content") : "";
-                    if (StringUtils.isNotEmpty(all)) {
-                        searchArea = SysConst.SearchArea.ALL.getType();
-                        relatedWords = all;
-                    }
-                    if (StringUtils.isNotEmpty(title)) {
-                        searchArea = SysConst.SearchArea.TITLE.getType();
-                        relatedWords = title;
-                    }
-                    if (StringUtils.isNotEmpty(content)) {
-                        searchArea = SysConst.SearchArea.CONTENT.getType();
-                        relatedWords = content;
-                    }
-                    if (StringUtils.isNotEmpty(sourceColumnTagRelatedWord)) {
-                        relatedWords = sourceColumnTagRelatedWord;
-                    }
                 }
 
             }
-            if (sourceColumnTagType == 1) {//新版标签
+            if (sourceColumnTagType == null || sourceColumnTagType == 1) {//新版标签
                 if (StringUtils.isNotEmpty(sourceColumnTagSearchArea)) {
                     switch (sourceColumnTagSearchArea) {
                         case "title":
@@ -294,31 +300,40 @@ public class ColumnSpecialCopy extends PageHandler<SourceColumnTag> {
             opinionWords = sourceColumnTagYuqingWord;
             ambiguousWords = sourceColumnTagQiyiWord;
             exclusionWords = sourceColumnTagUnrelatedWord;
-            if (sourceColumnTagIsDelete == 0) { //未删除
-                deleteState = SysConst.DeleteState.UN_DELETED.getCode();
+            if (sourceColumnTagIsDelete != null) {
+                if (sourceColumnTagIsDelete == 0) { //未删除
+                    deleteState = SysConst.DeleteState.UN_DELETED.getCode();
+                }
+                if (sourceColumnTagIsDelete == 1) { //已删除
+                    deleteState = SysConst.DeleteState.DELETE.getCode();
+                }
             }
-            if (sourceColumnTagIsDelete == 1) { //已删除
-                deleteState = SysConst.DeleteState.DELETE.getCode();
+            if (sourceColumnTagShowAs != null) {
+                if (sourceColumnTagShowAs == 1) { //展示
+                    showState = SysConst.ShowState.DISPLAY.getCode();
+                }
+                if (sourceColumnTagShowAs == 0) { //不展示
+                    showState = SysConst.ShowState.HIDE.getCode();
+                }
             }
-            if (sourceColumnTagShowAs == 1) { //展示
-                showState = SysConst.ShowState.DISPLAY.getCode();
+            if (sourceColumnTagIsTop != null) {
+                if (sourceColumnTagIsTop == 0) {   //不置顶
+                    topState = SysConst.TopState.UN_TOP.getCode();
+                }
+                if (sourceColumnTagIsTop == 1) {   //置顶
+                    topState = SysConst.TopState.TOP.getCode();
+                    topTime = sourceColumnTagTopTime;
+                }
             }
-            if (sourceColumnTagShowAs == 0) { //不展示
-                showState = SysConst.ShowState.HIDE.getCode();
+            if (sourceColumnTagAppShowAs != null) {
+                if (sourceColumnTagAppShowAs == 0) {//不可见
+                    appShowState = SysConst.ShowState.HIDE.getCode();
+                }
+                if (sourceColumnTagAppShowAs == 1) {//可见
+                    appShowState = SysConst.ShowState.DISPLAY.getCode();
+                }
             }
-            if (sourceColumnTagIsTop == 0) {   //不置顶
-                topState = SysConst.TopState.UN_TOP.getCode();
-            }
-            if (sourceColumnTagIsTop == 1) {   //置顶
-                topState = SysConst.TopState.TOP.getCode();
-                topTime = sourceColumnTagTopTime;
-            }
-            if (sourceColumnTagAppShowAs == 0) {//不可见
-                appShowState = SysConst.ShowState.HIDE.getCode();
-            }
-            if (sourceColumnTagAppShowAs == 1) {//可见
-                appShowState = SysConst.ShowState.DISPLAY.getCode();
-            }
+
 
 
             TargetColumnSpecial targetColumnSpecial = new TargetColumnSpecial();

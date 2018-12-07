@@ -25,9 +25,9 @@ spring:
       connection-test-query: SELECT 1
       max-active: 5
     target:
-      jdbc-url: jdbc:mysql://127.0.0.1:3306/pomp_prod?characterEncoding=utf8&useSSL=false
+      jdbc-url: jdbc:mysql://47.97.221.191:3306/pomp_prod?characterEncoding=utf8&useSSL=false
       username: root
-      password: root
+      password: Zkdj@123?
       minimum-idle: 1
       maximum-pool-size: 5
       auto-commit: true
