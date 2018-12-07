@@ -9,7 +9,7 @@ spring:
     database: MYSQL
     hibernate:
       ddl-auto: none
-    show-sql: true
+    show-sql: false
   datasource:
     source:
       jdbc-url: jdbc:mysql://rds8l3889yql6705lkkepublic.mysql.rds.aliyuncs.com:3306/pomp?useUnicode=true&amp;characterEncoding=UTF-8&useSSL=false
@@ -25,12 +25,12 @@ spring:
       connection-test-query: SELECT 1
       max-active: 5
     target:
-#      jdbc-url: jdbc:mysql://47.97.221.191:3306/pomp_prod?characterEncoding=utf8&useSSL=false
-#      username: root
-#      password: Zkdj@123?
-      jdbc-url: jdbc:mysql://127.0.0.1:3306/pomp_prod?characterEncoding=utf8&useSSL=false
+      jdbc-url: jdbc:mysql://47.97.221.191:3306/pomp_prod?characterEncoding=utf8&useSSL=false
       username: root
-      password: root
+      password: Zkdj@123?
+#      jdbc-url: jdbc:mysql://127.0.0.1:3306/pomp_prod?characterEncoding=utf8&useSSL=false
+#      username: root
+#      password: root
       minimum-idle: 1
       maximum-pool-size: 5
       auto-commit: true

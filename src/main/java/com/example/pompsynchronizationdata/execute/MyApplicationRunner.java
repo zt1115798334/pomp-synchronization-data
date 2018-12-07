@@ -73,6 +73,12 @@ public class MyApplicationRunner implements ApplicationRunner {
     private UserTokenCopy userTokenCopy;
 
     @Autowired
+    private CommentAnalysisCopy commentAnalysisCopy;
+
+    @Autowired
+    private CommentAnalysisUserCopy commentAnalysisUserCopy;
+
+    @Autowired
     private UserRelatedSettingAdd userRelatedSettingAdd;
 
 
@@ -133,6 +139,11 @@ public class MyApplicationRunner implements ApplicationRunner {
 //        log.info("step 9 -- 开始同步UserToken信息初始化数据...");
 //        userTokenCopy.handle();
 
+        log.info("step 10 -- 开始同步评论分析相关信息初始化数据...");
+        commentAnalysisCopy.handle();
+
+        log.info("-- 开始同步评论分析用户信息初始化数据...");
+        commentAnalysisUserCopy.handle();
 
 
 //        log.info("step 999 -- 开始添加用户的手动预警信息，存在的则不添加");

@@ -49,6 +49,6 @@ public class SourceWarningServiceImpl implements SourceWarningService {
             return builder.and(predicates.toArray(pre));
         };
 
-        return sourceWarningRepository.findAll(specification, pageRequest);
+        return sourceWarningRepository.findAll(null, pageRequest);
     }
 }
