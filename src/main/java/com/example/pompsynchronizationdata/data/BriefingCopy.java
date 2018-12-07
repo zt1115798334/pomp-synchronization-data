@@ -68,39 +68,43 @@ public class BriefingCopy extends PageHandler<SourceBriefing> {
                 LocalDateTime briefingEndTime = null;
 
                 String briefingType = null;
-                if (sourceBriefingType == 0) {//日报
-                    briefingType = SysConst.BriefingType.DAY.getType();
-                    //获取日报时间间隔
-                    if (sourceBriefingStartDateTime != null && sourceBriefingEndDateTime != null) {
-                        briefingStartTime = sourceBriefingStartDateTime;
-                        briefingEndTime = sourceBriefingEndDateTime;
-                    } else {
-                        briefingStartTime = DateUtils.dateTimeToFirstTime(thisTimeYesterday);
-                        briefingEndTime = DateUtils.dateTimeToLastTime(thisTimeYesterday);
+
+                if (sourceBriefingType != null) {
+                    if (sourceBriefingType == 0) {//日报
+                        briefingType = SysConst.BriefingType.DAY.getType();
+                        //获取日报时间间隔
+                        if (sourceBriefingStartDateTime != null && sourceBriefingEndDateTime != null) {
+                            briefingStartTime = sourceBriefingStartDateTime;
+                            briefingEndTime = sourceBriefingEndDateTime;
+                        } else {
+                            briefingStartTime = DateUtils.dateTimeToFirstTime(thisTimeYesterday);
+                            briefingEndTime = DateUtils.dateTimeToLastTime(thisTimeYesterday);
+                        }
+                    }
+                    if (sourceBriefingType == 1) {//周报
+                        briefingType = SysConst.BriefingType.WEEK.getType();
+                        //获取周报时间间隔
+                        if (sourceBriefingStartDateTime != null && sourceBriefingEndDateTime != null) {
+                            briefingStartTime = sourceBriefingStartDateTime;
+                            briefingEndTime = sourceBriefingEndDateTime;
+                        } else {
+                            briefingStartTime = DateUtils.dateTimeToFirstTime(DateUtils.dateTimeAddDay(thisTimeYesterday, -7));
+                            briefingEndTime = DateUtils.dateTimeToLastTime(thisTimeYesterday);
+                        }
+                    }
+                    if (sourceBriefingType == 2) {//月报
+                        briefingType = SysConst.BriefingType.MONTH.getType();
+                        //获取月报时间间隔
+                        if (sourceBriefingStartDateTime != null && sourceBriefingEndDateTime != null) {
+                            briefingStartTime = sourceBriefingStartDateTime;
+                            briefingEndTime = sourceBriefingEndDateTime;
+                        } else {
+                            briefingStartTime = DateUtils.dateTimeToMonthFirstDay(thisTimeYesterday);
+                            briefingEndTime = DateUtils.dateTimeToMonthLastDay(thisTimeYesterday);
+                        }
                     }
                 }
-                if (sourceBriefingType == 1) {//周报
-                    briefingType = SysConst.BriefingType.WEEK.getType();
-                    //获取周报时间间隔
-                    if (sourceBriefingStartDateTime != null && sourceBriefingEndDateTime != null) {
-                        briefingStartTime = sourceBriefingStartDateTime;
-                        briefingEndTime = sourceBriefingEndDateTime;
-                    } else {
-                        briefingStartTime = DateUtils.dateTimeToFirstTime(DateUtils.dateTimeAddDay(thisTimeYesterday, -7));
-                        briefingEndTime = DateUtils.dateTimeToLastTime(thisTimeYesterday);
-                    }
-                }
-                if (sourceBriefingType == 2) {//月报
-                    briefingType = SysConst.BriefingType.MONTH.getType();
-                    //获取月报时间间隔
-                    if (sourceBriefingStartDateTime != null && sourceBriefingEndDateTime != null) {
-                        briefingStartTime = sourceBriefingStartDateTime;
-                        briefingEndTime = sourceBriefingEndDateTime;
-                    } else {
-                        briefingStartTime = DateUtils.dateTimeToMonthFirstDay(thisTimeYesterday);
-                        briefingEndTime = DateUtils.dateTimeToMonthLastDay(thisTimeYesterday);
-                    }
-                }
+
                 Integer templateType = null;
 
                 if (Objects.equal(sourceBriefingTemplateType, "1")) {   //通用版
@@ -111,12 +115,15 @@ public class BriefingCopy extends PageHandler<SourceBriefing> {
                 }
 
                 Integer deleteState = SysConst.DeleteState.UN_DELETED.getCode();
-                if (sourceBriefingIsDelete == 0) {//no delete
-                    deleteState = SysConst.DeleteState.UN_DELETED.getCode();
+                if (sourceBriefingIsDelete != null) {
+                    if (sourceBriefingIsDelete == 0) {//no delete
+                        deleteState = SysConst.DeleteState.UN_DELETED.getCode();
+                    }
+                    if (sourceBriefingIsDelete == 1) {//delete
+                        deleteState = SysConst.DeleteState.DELETE.getCode();
+                    }
                 }
-                if (sourceBriefingIsDelete == 1) {//delete
-                    deleteState = SysConst.DeleteState.DELETE.getCode();
-                }
+
                 if (templateType != null && briefingType != null && briefingDate != null) {
                     TargetBriefing targetBriefing = new TargetBriefing();
                     targetBriefing.setId(id);

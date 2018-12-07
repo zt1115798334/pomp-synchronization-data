@@ -70,6 +70,9 @@ public class MyApplicationRunner implements ApplicationRunner {
     private UserAppCopy userAppCopy;
 
     @Autowired
+    private UserTokenCopy userTokenCopy;
+
+    @Autowired
     private UserRelatedSettingAdd userRelatedSettingAdd;
 
 
@@ -114,18 +117,25 @@ public class MyApplicationRunner implements ApplicationRunner {
 //
 //        log.info("-- 开始同步媒体报告文章信息数据...");
 //        briefingArticleMediaCopy.handle();
-
+//
 //        log.info("-- 开始同步通用报告文章信息数据...");
 //        briefingArticleCurrencyCopy.handle();
 //
 //        log.info("-- 开始同步通用报告模板信息初始化数据...");
 //        briefingTemplateCopy.handle();
-//
+
 //        log.info("step 7 -- 开始同步过滤信息初始化数据...");
 //        filterBoxCopy.handle();
 //
-//        log.info("step 7 -- 开始同步订阅app信息初始化数据...");
+//        log.info("step 8 -- 开始同步订阅app信息初始化数据...");
 //        userAppCopy.handle();
+
+        log.info("step 9 -- 开始同步UserToken信息初始化数据...");
+        userTokenCopy.handle();
+
+
+
+
 
 
 //        log.info("step 999 -- 开始添加用户的手动预警信息，存在的则不添加");

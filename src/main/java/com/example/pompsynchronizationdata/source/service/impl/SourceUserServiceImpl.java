@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 /**
  * Created with IntelliJ IDEA.
@@ -29,5 +30,10 @@ public class SourceUserServiceImpl implements SourceUserService {
     public Page<SourceUser> findPageByEntity(int pageNumber, int pageSize) {
         PageRequest pageRequest = PageUtils.buildPageRequest(pageNumber, pageSize);
         return sourceUserRepository.findAll(null, pageRequest);
+    }
+
+    @Override
+    public Optional<SourceUser> findById(Long id) {
+        return sourceUserRepository.findById(id);
     }
 }
