@@ -1,5 +1,6 @@
 package com.example.pompsynchronizationdata.data;
 
+import com.example.pompsynchronizationdata.custom.SysConst;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 
@@ -16,7 +17,7 @@ import java.util.List;
 public abstract class PageHandler<T> {
 
 
-    protected final int DEFAULT_BATCH_SIZE = 500;
+    protected final int DEFAULT_BATCH_SIZE = SysConst.DEFAULT_BATCH_SIZE;
 
 
     public void handle() {

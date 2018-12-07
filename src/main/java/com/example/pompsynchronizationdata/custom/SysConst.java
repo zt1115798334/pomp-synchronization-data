@@ -16,7 +16,7 @@ import java.util.Optional;
  */
 public class SysConst {
 
-    public static final int DEFAULT_BATCH_SIZE = 200;
+    public static final int DEFAULT_BATCH_SIZE = 500;
     public static final String DEFAULT_SORT_NAME = "publishTime";
     public static final String INDEX_CHART_SOURCE_ALL = "all";
     public static final String REDIS_CHANNEL = "ansj_term";

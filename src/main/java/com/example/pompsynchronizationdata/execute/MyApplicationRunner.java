@@ -130,11 +130,8 @@ public class MyApplicationRunner implements ApplicationRunner {
 //        log.info("step 8 -- 开始同步订阅app信息初始化数据...");
 //        userAppCopy.handle();
 
-        log.info("step 9 -- 开始同步UserToken信息初始化数据...");
-        userTokenCopy.handle();
-
-
-
+//        log.info("step 9 -- 开始同步UserToken信息初始化数据...");
+//        userTokenCopy.handle();
 
 
 

@@ -9,7 +9,7 @@ spring:
     database: MYSQL
     hibernate:
       ddl-auto: none
-    show-sql: false
+    show-sql: true
   datasource:
     source:
       jdbc-url: jdbc:mysql://rds8l3889yql6705lkkepublic.mysql.rds.aliyuncs.com:3306/pomp?useUnicode=true&amp;characterEncoding=UTF-8&useSSL=false
