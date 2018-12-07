@@ -67,6 +67,9 @@ public class MyApplicationRunner implements ApplicationRunner {
     private FilterBoxCopy filterBoxCopy;
 
     @Autowired
+    private UserAppCopy userAppCopy;
+
+    @Autowired
     private UserRelatedSettingAdd userRelatedSettingAdd;
 
 
@@ -120,6 +123,9 @@ public class MyApplicationRunner implements ApplicationRunner {
 //
 //        log.info("step 7 -- 开始同步过滤信息初始化数据...");
 //        filterBoxCopy.handle();
+//
+        log.info("step 7 -- 开始同步订阅app信息初始化数据...");
+        userAppCopy.handle();
 
 
 //        log.info("step 999 -- 开始添加用户的手动预警信息，存在的则不添加");

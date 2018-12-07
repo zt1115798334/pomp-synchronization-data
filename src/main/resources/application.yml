@@ -28,6 +28,9 @@ spring:
       jdbc-url: jdbc:mysql://47.97.221.191:3306/pomp_prod?characterEncoding=utf8&useSSL=false
       username: root
       password: Zkdj@123?
+#      jdbc-url: jdbc:mysql://127.0.0.1:3306/pomp_prod?characterEncoding=utf8&useSSL=false
+#      username: root
+#      password: root
       minimum-idle: 1
       maximum-pool-size: 5
       auto-commit: true
