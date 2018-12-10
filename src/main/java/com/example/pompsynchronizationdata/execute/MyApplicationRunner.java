@@ -81,6 +81,18 @@ public class MyApplicationRunner implements ApplicationRunner {
     @Autowired
     private UserRelatedSettingAdd userRelatedSettingAdd;
 
+    @Autowired
+    private AbroadWebsiteGroupDefaultCopy abroadWebsiteGroupDefaultCopy;
+
+    @Autowired
+    private AbroadWebsiteDefaultCopy abroadWebsiteDefaultCopy;
+
+    @Autowired
+    private AbroadWebsiteGroupCopy abroadWebsiteGroupCopy;
+
+    @Autowired
+    private AbroadWebsiteCopy abroadWebsiteCopy;
+
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -139,12 +151,20 @@ public class MyApplicationRunner implements ApplicationRunner {
 //        log.info("step 9 -- 开始同步UserToken信息初始化数据...");
 //        userTokenCopy.handle();
 
-        log.info("step 10 -- 开始同步评论分析相关信息初始化数据...");
-        commentAnalysisCopy.handle();
+//        log.info("step 10 -- 开始同步评论分析相关信息初始化数据...");
+//        commentAnalysisCopy.handle();
 
-        log.info("-- 开始同步评论分析用户信息初始化数据...");
-        commentAnalysisUserCopy.handle();
+//        log.info("-- 开始同步评论分析用户信息初始化数据...");
+//        commentAnalysisUserCopy.handle();
 
+        log.info("step 11 -- 开始同步默认境外站点导航分组信息初始化数据...");
+        abroadWebsiteGroupDefaultCopy.handle();
+        log.info("-- 开始同步默认境外站点导航信息初始化数据...");
+        abroadWebsiteDefaultCopy.handle();
+        log.info("-- 开始同步境外站点导航分组信息初始化数据...");
+        abroadWebsiteGroupCopy.handle();
+        log.info("-- 开始同步境外站点导航信息初始化数据...");
+        abroadWebsiteCopy.handle();
 
 //        log.info("step 999 -- 开始添加用户的手动预警信息，存在的则不添加");
 //        userRelatedSettingAdd.handle();  //他需要warningRuleCopy.handle(); 执行后执行，同时修改实体类TargetWarningRule 继承IdIdentityEntity
