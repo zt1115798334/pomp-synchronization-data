@@ -5,8 +5,10 @@ import com.example.pompsynchronizationdata.custom.DateUtils;
 import com.example.pompsynchronizationdata.custom.SysConst;
 import com.example.pompsynchronizationdata.source.entity.SourceUser;
 import com.example.pompsynchronizationdata.source.service.SourceUserService;
+import com.example.pompsynchronizationdata.target.entity.TargetAbroadNewsGroup;
 import com.example.pompsynchronizationdata.target.entity.TargetBriefingSetting;
 import com.example.pompsynchronizationdata.target.entity.TargetWarningRule;
+import com.example.pompsynchronizationdata.target.service.TargetAbroadNewsGroupService;
 import com.example.pompsynchronizationdata.target.service.TargetBriefingSettingService;
 import com.example.pompsynchronizationdata.target.service.TargetWarningRuleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +38,9 @@ public class UserRelatedSettingAdd extends PageHandler<SourceUser> {
     @Autowired
     private TargetBriefingSettingService targetBriefingSettingService;
 
+    @Autowired
+    private TargetAbroadNewsGroupService targetAbroadNewsGroupService;
+
     @Override
     protected int handleDataOfPerPage(List<SourceUser> list, int pageNumber) {
         int size = list.size();
@@ -44,14 +49,15 @@ public class UserRelatedSettingAdd extends PageHandler<SourceUser> {
             cpb.show(i);
             SourceUser sourceUser = list.get(i);
             Long userId = sourceUser.getId();
-            Optional<TargetWarningRule> targetWarningRuleOptional = targetWarningRuleService.findHandleByUserId(userId);
-            if (!targetWarningRuleOptional.isPresent()) {   //如果不存在 则添加
-                saveSysHandleWarning(userId);
-            }
-            List<TargetBriefingSetting> targetBriefingSettingList = targetBriefingSettingService.findByUserId(userId);
-            if (targetBriefingSettingList == null || targetBriefingSettingList.size() == 0) {
-                saveSysBriefingSetting(userId);
-            }
+//            Optional<TargetWarningRule> targetWarningRuleOptional = targetWarningRuleService.findHandleByUserId(userId);
+//            if (!targetWarningRuleOptional.isPresent()) {   //如果不存在 则添加
+//                saveSysHandleWarning(userId);
+//            }
+//            List<TargetBriefingSetting> targetBriefingSettingList = targetBriefingSettingService.findByUserId(userId);
+//            if (targetBriefingSettingList == null || targetBriefingSettingList.size() == 0) {
+//                saveSysBriefingSetting(userId);
+//            }
+
 
         }
         return size;
@@ -119,4 +125,6 @@ public class UserRelatedSettingAdd extends PageHandler<SourceUser> {
         bsMonth.setCustomState(defaultCode);
         targetBriefingSettingService.save(bsMonth);
     }
+
+
 }
