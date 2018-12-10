@@ -102,6 +102,12 @@ public class MyApplicationRunner implements ApplicationRunner {
     @Autowired
     private MessageReadCopy messageReadCopy;
 
+    @Autowired
+    private AbroadSocializationGroupCopy abroadSocializationGroupCopy;
+
+    @Autowired
+    private AbroadSocializationSetCopy abroadSocializationSetCopy;
+
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -178,10 +184,15 @@ public class MyApplicationRunner implements ApplicationRunner {
 //        log.info("step 12 -- 开始同步境外新闻监测数据");
 //        abroadNewsSetCopy.handle();
 //
-        log.info("step 13 -- 开始同步消息数据");
-        messageCopy.handle();
-        log.info("-- 开始同步消息阅读数据");
-        messageReadCopy.handle();
+//        log.info("step 13 -- 开始同步消息数据");
+//        messageCopy.handle();
+//        log.info("-- 开始同步消息阅读数据");
+//        messageReadCopy.handle();
+
+        log.info("step 13 -- 开始同步境外媒体分组数据");
+        abroadSocializationGroupCopy.handle();
+        log.info("-- 开始同步境外媒体设置数据");
+        abroadSocializationSetCopy.handle();
 
 
 //        log.info("step 999 -- 开始添加用户信息");

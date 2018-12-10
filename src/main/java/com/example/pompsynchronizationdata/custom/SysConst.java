@@ -1022,4 +1022,29 @@ public class SysConst {
             return name;
         }
     }
+    /**
+     * 监测媒体类型
+     */
+    public enum SocialType {
+
+        ALL("all", "全部"),
+        TWITTER("twitter", "推特"),
+        FACEBOOK("facebook", "facebook");
+
+        private String type;
+        private String name;
+
+        SocialType(String type, String name) {
+            this.type = type;
+            this.name = name;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public String getName() {
+            return name;
+        }
+    }
 }
