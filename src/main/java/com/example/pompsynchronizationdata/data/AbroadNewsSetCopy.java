@@ -109,7 +109,7 @@ public class AbroadNewsSetCopy extends PageHandler<SourceAbroadSetting> {
         return sourceAbroadSettingService.findPageByEntity(pageNumber, DEFAULT_BATCH_SIZE);
     }
 
-    public TargetAbroadNewsGroup saveDefaultAbroadNewsGroup(Long userId) {
+    private TargetAbroadNewsGroup saveDefaultAbroadNewsGroup(Long userId) {
         TargetAbroadNewsGroup targetAbroadNewsGroup = new TargetAbroadNewsGroup();
         targetAbroadNewsGroup.setUserId(userId);
         targetAbroadNewsGroup.setGroupName("默认分组");
