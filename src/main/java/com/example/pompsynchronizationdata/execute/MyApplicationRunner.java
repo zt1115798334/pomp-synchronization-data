@@ -112,6 +112,9 @@ public class MyApplicationRunner implements ApplicationRunner {
     @Autowired
     private ArticleCopy articleCopy;
 
+    @Autowired
+    private SiteCopy siteCopy;
+
     @Override
     public void run(ApplicationArguments args) throws Exception {
         log.info("开始同步数据了...");
@@ -197,9 +200,11 @@ public class MyApplicationRunner implements ApplicationRunner {
 //        log.info("-- 开始同步境外媒体设置数据");
 //        abroadSocializationSetCopy.handle();
 
+//        log.info("step 15 -- 开始同步文章表数据");
+//        articleCopy.handle();
 
-        log.info("step 15 -- 开始同步文章表数据");
-        articleCopy.handle();
+        log.info("step 16 -- 同步站点数据");
+        siteCopy.handle();
 
 //        log.info("step 999 -- 开始添加用户信息");
 //        userRelatedSettingAdd.handle();  //他需要warningRuleCopy.handle(); 执行后执行，同时修改实体类TargetWarningRule 继承IdIdentityEntity
