@@ -210,8 +210,8 @@ public class MyApplicationRunner implements ApplicationRunner {
 //        siteCopy.handle();
 //
 
-        log.info("step 16 -- 同步多语言数据");
-        languageSetCopy.handle();
+//        log.info("step 17 -- 同步多语言数据");
+//        languageSetCopy.handle();
 
 //        log.info("step 999 -- 开始添加用户信息");
 //        userRelatedSettingAdd.handle();  //他需要warningRuleCopy.handle(); 执行后执行，同时修改实体类TargetWarningRule 继承IdIdentityEntity

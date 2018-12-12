@@ -5,11 +5,11 @@ import com.example.pompsynchronizationdata.custom.DateUtils;
 import com.example.pompsynchronizationdata.custom.SysConst;
 import com.example.pompsynchronizationdata.source.entity.SourceUser;
 import com.example.pompsynchronizationdata.source.service.SourceUserService;
-import com.example.pompsynchronizationdata.target.entity.TargetAbroadNewsGroup;
 import com.example.pompsynchronizationdata.target.entity.TargetBriefingSetting;
 import com.example.pompsynchronizationdata.target.entity.TargetWarningRule;
 import com.example.pompsynchronizationdata.target.service.TargetAbroadNewsGroupService;
 import com.example.pompsynchronizationdata.target.service.TargetBriefingSettingService;
+import com.example.pompsynchronizationdata.target.service.TargetUserConfigService;
 import com.example.pompsynchronizationdata.target.service.TargetWarningRuleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,7 +17,6 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Created with IntelliJ IDEA.
@@ -39,7 +38,7 @@ public class UserRelatedSettingAdd extends PageHandler<SourceUser> {
     private TargetBriefingSettingService targetBriefingSettingService;
 
     @Autowired
-    private TargetAbroadNewsGroupService targetAbroadNewsGroupService;
+    private TargetUserConfigService targetUserConfigService;
 
     @Override
     protected int handleDataOfPerPage(List<SourceUser> list, int pageNumber) {
@@ -57,7 +56,7 @@ public class UserRelatedSettingAdd extends PageHandler<SourceUser> {
 //            if (targetBriefingSettingList == null || targetBriefingSettingList.size() == 0) {
 //                saveSysBriefingSetting(userId);
 //            }
-
+            targetUserConfigService.save(userId);
 
         }
         return size;
