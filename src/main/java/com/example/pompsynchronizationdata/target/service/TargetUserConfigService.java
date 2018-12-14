@@ -13,6 +13,4 @@ import com.example.pompsynchronizationdata.target.entity.TargetUserConfig;
  */
 public interface TargetUserConfigService extends BaseService<TargetUserConfig> {
 
-    void save(Long userId);
-
 }

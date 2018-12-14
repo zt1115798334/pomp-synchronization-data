@@ -26,17 +26,8 @@ public class TargetUserConfigServiceImpl implements TargetUserConfigService {
     @Autowired
     private TargetUserConfigRepository targetUserConfigRepository;
 
-
     @Override
-    public void save(Long userId) {
-        Optional<TargetUserConfig> userConfigOptional = targetUserConfigRepository.findByUserId(userId);
-        if (!userConfigOptional.isPresent()) {
-            TargetUserConfig userConfig = new TargetUserConfig();
-            userConfig.setUserId(userId);
-            userConfig.setWarningAppState(ON);
-            userConfig.setIndexChartSourceSpecialId(SysConst.INDEX_CHART_SOURCE_ALL);
-            userConfig.setAbroadWebsiteDefaultShowState(SysConst.ShowState.DISPLAY.getCode());
-            targetUserConfigRepository.save(userConfig);
-        }
+    public TargetUserConfig save(TargetUserConfig targetUserConfig) {
+        return targetUserConfigRepository.save(targetUserConfig);
     }
 }

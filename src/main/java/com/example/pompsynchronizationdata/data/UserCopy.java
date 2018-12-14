@@ -1,15 +1,19 @@
 package com.example.pompsynchronizationdata.data;
 
 import com.example.pompsynchronizationdata.custom.ConsoleProgressBar;
+import com.example.pompsynchronizationdata.custom.DateUtils;
+import com.example.pompsynchronizationdata.custom.SysConst;
 import com.example.pompsynchronizationdata.source.entity.SourceUser;
 import com.example.pompsynchronizationdata.source.service.SourceUserService;
 import com.example.pompsynchronizationdata.target.entity.TargetUser;
+import com.example.pompsynchronizationdata.target.entity.TargetUserConfig;
+import com.example.pompsynchronizationdata.target.service.TargetUserConfigService;
 import com.example.pompsynchronizationdata.target.service.TargetUserService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -28,69 +32,143 @@ public class UserCopy extends PageHandler<SourceUser> {
     @Autowired
     private TargetUserService targetUserService;
 
+    @Autowired
+    private TargetUserConfigService targetUserConfigService;
+
     @Override
     protected int handleDataOfPerPage(List<SourceUser> list, int pageNumber) {
         int size = list.size();
         ConsoleProgressBar cpb = new ConsoleProgressBar(0, size, 20, '=');
         for (int i = 0; i < size; i++) {
             SourceUser sourceUser = list.get(i);
+            Long sourceUserId = sourceUser.getId();
+            String sourceUserPhone = sourceUser.getPhone();
+            String sourceUserName = sourceUser.getName();
+            String sourceUserEmail = sourceUser.getEmail();
+            String sourceUserPassword = sourceUser.getPassword();
+            Integer sourceUserLevel = sourceUser.getLevel();
+            Integer sourceUserExpired = sourceUser.getExpired();
+            Integer sourceUserIndustry = sourceUser.getIndustry();
+            Integer sourceUserThesaurus = sourceUser.getThesaurus();
+            Integer sourceUserEvent = sourceUser.getEvent();
+            Integer sourceUserIdentity = sourceUser.getIdentity();
+            Integer sourceUserTieba = sourceUser.getTieba();
+            Integer sourceUserSms = sourceUser.getSms();
+            Integer sourceUserSex = sourceUser.getSex();
+            String sourceUserCompany = sourceUser.getCompany();
+            String sourceUserCity = sourceUser.getCity();
+            Integer sourceUserInfo = sourceUser.getInfo();
+            Long sourceUserLsystemuserid = sourceUser.getLsystemuserid();
+            String sourceUserProjectname = sourceUser.getProjectname();
+            String sourceUserRemarksname = sourceUser.getRemarksname();
+            Long sourceUserLsyspackageid = sourceUser.getLsyspackageid();
+            Integer sourceUserProreportsum = sourceUser.getProreportsum();
+            Integer sourceUserGuidesum = sourceUser.getGuidesum();
+            String sourceUserRememberToken = sourceUser.getRememberToken();
+            LocalDateTime sourceUserEndtime = sourceUser.getEndtime();
+            LocalDateTime sourceUserUpdatedAt = sourceUser.getUpdatedAt();
+            LocalDateTime sourceUserCreatedAt = sourceUser.getCreatedAt();
+            String sourceUserPlainPassword = sourceUser.getPlainPassword();
+            String sourceUserSalt = sourceUser.getSalt();
+            Integer sourceUserClientSource = sourceUser.getClientSource();
+            String sourceUserClientName = sourceUser.getClientName();
+            Integer sourceUserLabel = sourceUser.getLabel();
+            String sourceUserRemark = sourceUser.getRemark();
+            String sourceUserStep = sourceUser.getStep();
+            Integer sourceUserIpShow = sourceUser.getIpShow();
+            Integer sourceUserIdentityShow = sourceUser.getIdentityShow();
+            String sourceUserRemark1 = sourceUser.getRemark1();
+            Integer sourceUserIsassessment = sourceUser.getIsassessment();
+            String sourceUserUserDeviceToken = sourceUser.getUserDeviceToken();
+            String sourceUserRegistrationId = sourceUser.getRegistrationId();
+            Integer sourceUserDayNum = sourceUser.getDayNum();
+            Integer sourceUserTotalNum = sourceUser.getTotalNum();
+            LocalDateTime sourceUserNumTime = sourceUser.getNumTime();
+            Integer sourceUserIsCode = sourceUser.getIsCode();
+            Integer sourceUserIsLanguage = sourceUser.getIsLanguage();
+            Integer sourceUserIsCountry = sourceUser.getIsCountry();
+            Integer sourceUserAccountLevel = sourceUser.getAccountLevel();
+            Long sourceUserParentId = sourceUser.getParentId();
+            Integer sourceUserAccountCount = sourceUser.getAccountCount();
+            Integer sourceUserKeyWordCount = sourceUser.getKeyWordCount();
+            Integer sourceUserMessageCount = sourceUser.getMessageCount();
+            Integer sourceUserEventCount = sourceUser.getEventCount();
+            Integer sourceUserOrderCount = sourceUser.getOrderCount();
+            String sourceUserWarningVoice = sourceUser.getWarningVoice();
+            Integer sourceUserOverseasSitesDefaultState = sourceUser.getOverseasSitesDefaultState();
+
+            Integer sex = SysConst.Sex.Unknown.getCode();
+            if (sourceUserSex == 1) {//男
+                sex = SysConst.Sex.MEN.getCode();
+            }
+            if (sourceUserSex == 2) {//女
+                sex = SysConst.Sex.WOMEN.getCode();
+            }
+            Integer expireState = SysConst.ExpireState.UNEXPIRED.getCode();
+            if (sourceUserExpired == 0) {    //未禁用
+                expireState = SysConst.ExpireState.UNEXPIRED.getCode();
+            }
+            if (sourceUserExpired == 1) {    //禁用
+                expireState = SysConst.ExpireState.EXPIRE.getCode();
+            }
+            Integer accountLevel = SysConst.AccountLevel.ONE_LEVEL.getCode();
+            if (sourceUserAccountLevel == 1) {
+                accountLevel = SysConst.AccountLevel.ONE_LEVEL.getCode();
+            }
+            if (sourceUserAccountLevel == 2) {
+                accountLevel = SysConst.AccountLevel.TWO_LEVEL.getCode();
+            }
+            Integer accountState = SysConst.AccountState.Frozen.getCode();
+
+            if (sourceUserLevel == 0) { //冻结
+                accountState = SysConst.AccountState.Frozen.getCode();
+            }
+            if (sourceUserLevel == 1) { //免费
+                accountState = SysConst.AccountState.FREE.getCode();
+            }
+            if (sourceUserLevel == 2) { //试用
+                accountState = SysConst.AccountState.PROBATIONER.getCode();
+            }
+            if (sourceUserLevel == 3) { //正式
+                accountState = SysConst.AccountState.CEREMONIAL.getCode();
+            }
             TargetUser targetUser = new TargetUser();
-            targetUser.setId(sourceUser.getId());
-            targetUser.setPhone(sourceUser.getPhone());
-            targetUser.setName(sourceUser.getName());
-            targetUser.setEmail(sourceUser.getEmail());
-            targetUser.setPassword(sourceUser.getPassword());
-            targetUser.setLevel(sourceUser.getLevel());
-            targetUser.setExpired(sourceUser.getExpired());
-            targetUser.setIndustry(sourceUser.getIndustry());
-            targetUser.setThesaurus(sourceUser.getThesaurus());
-            targetUser.setEvent(sourceUser.getEvent());
-            targetUser.setIdentity(sourceUser.getIdentity());
-            targetUser.setTieba(sourceUser.getTieba());
-            targetUser.setSms(sourceUser.getSms());
-            targetUser.setSex(sourceUser.getSex());
-            targetUser.setCompany(sourceUser.getCompany());
-            targetUser.setCity(sourceUser.getCity());
-            targetUser.setInfo(sourceUser.getInfo());
-            targetUser.setLsystemuserid(sourceUser.getLsystemuserid());
-            targetUser.setProjectname(sourceUser.getProjectname());
-            targetUser.setRemarksname(sourceUser.getRemarksname());
-            targetUser.setLsystemuserid(sourceUser.getLsystemuserid());
-            targetUser.setProreportsum(sourceUser.getProreportsum());
-            targetUser.setGuidesum(sourceUser.getGuidesum());
-            targetUser.setRememberToken(sourceUser.getRememberToken());
-            targetUser.setEndtime(sourceUser.getEndtime());
-            targetUser.setUpdatedAt(sourceUser.getUpdatedAt());
-            targetUser.setCreatedAt(sourceUser.getCreatedAt());
-            targetUser.setPlainPassword(sourceUser.getPlainPassword());
-            targetUser.setSalt(sourceUser.getSalt());
-            targetUser.setClientSource(sourceUser.getClientSource());
-            targetUser.setClientName(sourceUser.getClientName());
-            targetUser.setLabel(sourceUser.getLabel());
-            targetUser.setRemark(sourceUser.getRemark());
-            targetUser.setStep(sourceUser.getStep());
-            targetUser.setIpShow(sourceUser.getIpShow());
-            targetUser.setIdentityShow(sourceUser.getIdentityShow());
-            targetUser.setRemark(sourceUser.getRemark());
-            targetUser.setIsassessment(sourceUser.getIsassessment());
-            targetUser.setUserDeviceToken(sourceUser.getUserDeviceToken());
-            targetUser.setRegistrationId(sourceUser.getRegistrationId());
-            targetUser.setDayNum(sourceUser.getDayNum());
-            targetUser.setTotalNum(sourceUser.getTotalNum());
-            targetUser.setNumTime(sourceUser.getNumTime());
-            targetUser.setIsCode(sourceUser.getIsCode());
-            targetUser.setIsLanguage(sourceUser.getIsLanguage());
-            targetUser.setIsCountry(sourceUser.getIsCountry());
-            targetUser.setAccountLevel(sourceUser.getAccountLevel());
-            targetUser.setParentId(sourceUser.getParentId());
-            targetUser.setAccountCount(sourceUser.getAccountCount());
-            targetUser.setKeyWordCount(sourceUser.getKeyWordCount());
-            targetUser.setMessageCount(sourceUser.getMessageCount());
-            targetUser.setEventCount(sourceUser.getEventCount());
-            targetUser.setOrderCount(sourceUser.getOrderCount());
-            targetUser.setWarningVoice(sourceUser.getWarningVoice());
-            targetUser.setOverseasSitesDefaultState(sourceUser.getOverseasSitesDefaultState());
+            targetUser.setId(sourceUserId);
+            targetUser.setAccount(sourceUserPhone);
+            targetUser.setPassword(sourceUserPassword);
+            targetUser.setPhone(sourceUserPhone);
+            targetUser.setEmail(sourceUserEmail);
+            targetUser.setAccountState(accountState);
+            targetUser.setAccountLevel(accountLevel);
+            targetUser.setExpireDate(sourceUserEndtime.toLocalDate());
+            targetUser.setExpireState(expireState);
+            targetUser.setSex(sex);
+            targetUser.setCompany(sourceUserCompany);
+            targetUser.setCity(sourceUserCity);
+            targetUser.setOperationUserIdL(sourceUserLsystemuserid);
+            targetUser.setProjectName(sourceUserProjectname);
+            targetUser.setProjectAlias(sourceUserRemarksname);
+            targetUser.setParentId(sourceUserParentId);
+            targetUser.setCreatedTime(sourceUserEndtime);
+            targetUser.setUpdatedTime(DateUtils.currentDateTime());
+            targetUser.setLastLoginTime(DateUtils.currentDateTime());
+            targetUser.setDeleteState(SysConst.DeleteState.UN_DELETED.getCode());
+
+
             targetUserService.save(targetUser);
+
+            TargetUserConfig userConfig = new TargetUserConfig();
+            userConfig.setUserId(sourceUserId);
+            userConfig.setWarningAppState(SysConst.EnabledState.ON.getCode());
+            userConfig.setIndexChartSourceSpecialId(SysConst.INDEX_CHART_SOURCE_ALL);
+            userConfig.setAbroadWebsiteDefaultShowState(SysConst.ShowState.DISPLAY.getCode());
+            userConfig.setSpecialReportCount(sourceUserProreportsum);
+            userConfig.setEventCount(sourceUserEvent);
+            userConfig.setSubAccountCount(sourceUserAccountCount);
+            userConfig.setOrderAppCount(sourceUserOrderCount);
+            userConfig.setSmsCount(sourceUserSms);
+            targetUserConfigService.save(userConfig);
+
             cpb.show(i);
         }
         return size;

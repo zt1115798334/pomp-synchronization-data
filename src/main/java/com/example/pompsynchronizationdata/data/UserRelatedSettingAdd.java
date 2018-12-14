@@ -37,8 +37,7 @@ public class UserRelatedSettingAdd extends PageHandler<SourceUser> {
     @Autowired
     private TargetBriefingSettingService targetBriefingSettingService;
 
-    @Autowired
-    private TargetUserConfigService targetUserConfigService;
+
 
     @Override
     protected int handleDataOfPerPage(List<SourceUser> list, int pageNumber) {
@@ -56,7 +55,6 @@ public class UserRelatedSettingAdd extends PageHandler<SourceUser> {
 //            if (targetBriefingSettingList == null || targetBriefingSettingList.size() == 0) {
 //                saveSysBriefingSetting(userId);
 //            }
-            targetUserConfigService.save(userId);
 
         }
         return size;

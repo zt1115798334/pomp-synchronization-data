@@ -1,5 +1,8 @@
 package com.example.pompsynchronizationdata.custom;
 
+import com.google.common.base.Objects;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;
@@ -16,7 +19,7 @@ import java.util.Optional;
  */
 public class SysConst {
 
-    public static final int DEFAULT_BATCH_SIZE = 500;
+    public static final int DEFAULT_BATCH_SIZE = 200;
     public static final String DEFAULT_SORT_NAME = "publishTime";
     public static final String INDEX_CHART_SOURCE_ALL = "all";
     public static final String REDIS_CHANNEL = "ansj_term";
@@ -33,7 +36,8 @@ public class SysConst {
     ///////////////////////////////////////////////////////////////////////////
     // 通用常量 -- 多实体类通用
     ///////////////////////////////////////////////////////////////////////////
-
+    @Getter
+    @AllArgsConstructor
     public enum ResultStatusCode {
         SUCCESS(0, "success"),
         FAILED(1, "failed"),
@@ -42,45 +46,26 @@ public class SysConst {
 
         private Integer code;
         private String name;
-
-        ResultStatusCode(Integer code, String name) {
-            this.code = code;
-            this.name = name;
-        }
-
-        public Integer getCode() {
-            return code;
-        }
-
-        public String getName() {
-            return name;
-        }
     }
 
     /**
      * 排序
      */
+    @Getter
+    @AllArgsConstructor
     public enum SortOrder {
 
         ASC("asc"),
         DESC("desc");
 
         private String code;
-
-        SortOrder(String code) {
-            this.code = code;
-        }
-
-        public String getCode() {
-            return code;
-        }
-
-
     }
 
     /**
      * 时间类型
      */
+    @Getter
+    @AllArgsConstructor
     public enum TimeType {
         CUSTOM_TIME("define", "自定义时间"),
         ALL("all", "全部"),
@@ -92,23 +77,13 @@ public class SysConst {
         private String code;
         private String name;
 
-        TimeType(String code, String name) {
-            this.code = code;
-            this.name = name;
-        }
-
-        public String getCode() {
-            return code;
-        }
-
-        public String getName() {
-            return name;
-        }
     }
 
     /**
      * 删除状态
      */
+    @Getter
+    @AllArgsConstructor
     public enum DeleteState {
 
         UN_DELETED(0, "未删除"),
@@ -116,24 +91,13 @@ public class SysConst {
 
         private Integer code;
         private String name;
-
-        DeleteState(Integer code, String name) {
-            this.code = code;
-            this.name = name;
-        }
-
-        public Integer getCode() {
-            return code;
-        }
-
-        public String getName() {
-            return name;
-        }
     }
 
     /**
      * 显示状态
      */
+    @Getter
+    @AllArgsConstructor
     public enum ShowState {
 
         HIDE(0, "隐藏"),
@@ -141,24 +105,13 @@ public class SysConst {
 
         private Integer code;
         private String name;
-
-        ShowState(Integer code, String name) {
-            this.code = code;
-            this.name = name;
-        }
-
-        public Integer getCode() {
-            return code;
-        }
-
-        public String getName() {
-            return name;
-        }
     }
 
     /**
      * 置顶状态
      */
+    @Getter
+    @AllArgsConstructor
     public enum TopState {
 
         UN_TOP(0, "不置顶"),
@@ -167,23 +120,13 @@ public class SysConst {
         private Integer code;
         private String name;
 
-        TopState(Integer code, String name) {
-            this.code = code;
-            this.name = name;
-        }
-
-        public Integer getCode() {
-            return code;
-        }
-
-        public String getName() {
-            return name;
-        }
     }
 
     /**
      * 开启状态
      */
+    @Getter
+    @AllArgsConstructor
     public enum EnabledState {
 
         OFF(0, "停用"),
@@ -192,23 +135,13 @@ public class SysConst {
         private Integer code;
         private String name;
 
-        EnabledState(Integer code, String name) {
-            this.code = code;
-            this.name = name;
-        }
-
-        public Integer getCode() {
-            return code;
-        }
-
-        public String getName() {
-            return name;
-        }
     }
 
     /**
      * 阅读状态
      */
+    @Getter
+    @AllArgsConstructor
     public enum ReadState {
 
         UNREAD(0, "未读"),
@@ -216,24 +149,13 @@ public class SysConst {
 
         private Integer code;
         private String name;
-
-        ReadState(Integer code, String name) {
-            this.code = code;
-            this.name = name;
-        }
-
-        public Integer getCode() {
-            return code;
-        }
-
-        public String getName() {
-            return name;
-        }
     }
 
     /**
      * 发送状态
      */
+    @Getter
+    @AllArgsConstructor
     public enum SendState {
 
         UNSENT(0, "未发送"),
@@ -242,23 +164,13 @@ public class SysConst {
         private Integer code;
         private String name;
 
-        SendState(Integer code, String name) {
-            this.code = code;
-            this.name = name;
-        }
-
-        public Integer getCode() {
-            return code;
-        }
-
-        public String getName() {
-            return name;
-        }
     }
 
     /**
      * 发送状态
      */
+    @Getter
+    @AllArgsConstructor
     public enum FromType {
 
         PANORAMA("panorama", "全景"),
@@ -270,20 +182,47 @@ public class SysConst {
 
         private String type;
         private String name;
-
-        FromType(String type, String name) {
-            this.type = type;
-            this.name = name;
-        }
-
-        public String getType() {
-            return type;
-        }
-
-        public String getName() {
-            return name;
-        }
     }
+
+    /**
+     * 验证码类型
+     */
+    @Getter
+    @AllArgsConstructor
+    public enum VerificationCodeType {
+
+        REG(0, "账户注册"),
+        LOGIN(1, "账户登陆"),
+        FORGET(2, "密码重置"),
+        BIND(3, "账户绑定"),
+        UNKNOWN(99, "未知");
+
+        private Integer code;
+        private String name;
+    }
+
+    public static Optional<VerificationCodeType> getVerificationCodeTypeByCode(Integer code) {
+        return Arrays.stream(VerificationCodeType.values())
+                .filter(replyType -> Objects.equal(code, replyType.getCode()))
+                .findFirst();
+    }
+
+    /**
+     * 文件扩展名
+     */
+    @Getter
+    @AllArgsConstructor
+    public enum ExtensionName {
+        WORD2003_EDITION("doc", "word2003"),
+        WORD2007_EDITION("docx", "word2007"),
+        EXCEL2003_EDITION("xls", "excel2003"),
+        EXCEL2007_EDITION("xlsx", "excel2007"),
+        PDF_EDITION("pdf", "pdf");
+
+        private String type;
+        private String name;
+    }
+
 
     ///////////////////////////////////////////////////////////////////////////
     // 特别常量 -- 单实体类通用
@@ -293,6 +232,8 @@ public class SysConst {
     /**
      * 登录类型
      */
+    @Getter
+    @AllArgsConstructor
     public enum LoginType {
 
         AJAX("ajax", "ajax登陆"),
@@ -302,24 +243,77 @@ public class SysConst {
         private String type;
         private String name;
 
-        LoginType(String type, String name) {
-            this.type = type;
-            this.name = name;
-        }
+    }
 
-        public String getType() {
-            return type;
-        }
+    /**
+     * 账户状态
+     */
+    @Getter
+    @AllArgsConstructor
+    public enum AccountState {
 
-        public String getName() {
-            return name;
-        }
+        Frozen(0, "冻结"),
+        FREE(1, "免费账户"),
+        PROBATIONER(2, "试用账户"),
+        CEREMONIAL(3, "正式账户");
+
+        private Integer code;
+        private String name;
+
+    }
+
+    /**
+     * 账户等级
+     */
+    @Getter
+    @AllArgsConstructor
+    public enum AccountLevel {
+
+        ONE_LEVEL(1, "一级账户"),
+        TWO_LEVEL(2, "二级账户");
+
+        private Integer code;
+        private String name;
+
+    }
+
+    /**
+     * 到期状态
+     */
+    @Getter
+    @AllArgsConstructor
+    public enum ExpireState {
+
+        UNEXPIRED(0, "未到期"),
+        EXPIRE(1, "到期");
+
+        private Integer code;
+        private String name;
+
+    }
+
+    /**
+     * 性别
+     */
+    @Getter
+    @AllArgsConstructor
+    public enum Sex {
+
+        WOMEN(0, "女"),
+        MEN(1, "男"),
+        Unknown(99, "未知");
+
+        private Integer code;
+        private String name;
+
     }
 
 
     /**
      * 过滤类型
      */
+    @Getter
+    @AllArgsConstructor
     public enum FilterType {
 
         KEYWORD(0, "关键词"),
@@ -330,23 +324,13 @@ public class SysConst {
         private Integer code;
         private String name;
 
-        FilterType(Integer code, String name) {
-            this.code = code;
-            this.name = name;
-        }
-
-        public Integer getCode() {
-            return code;
-        }
-
-        public String getName() {
-            return name;
-        }
     }
 
     /**
      * 位置
      */
+    @Getter
+    @AllArgsConstructor
     public enum Position {
 
         CENTER(1, "居中"),
@@ -354,24 +338,13 @@ public class SysConst {
 
         private Integer code;
         private String name;
-
-        Position(Integer code, String name) {
-            this.code = code;
-            this.name = name;
-        }
-
-        public Integer getCode() {
-            return code;
-        }
-
-        public String getName() {
-            return name;
-        }
     }
 
     /**
      * 预警类型
      */
+    @Getter
+    @AllArgsConstructor
     public enum WarningType {
 
         MACHINE(0, "机器预警"),
@@ -380,23 +353,13 @@ public class SysConst {
         private Integer code;
         private String name;
 
-        WarningType(Integer code, String name) {
-            this.code = code;
-            this.name = name;
-        }
-
-        public Integer getCode() {
-            return code;
-        }
-
-        public String getName() {
-            return name;
-        }
     }
 
     /**
      * 预警等级
      */
+    @Getter
+    @AllArgsConstructor
     public enum WarningLevel {
 
         RED("red", "红色预警"),
@@ -406,18 +369,6 @@ public class SysConst {
         private String type;
         private String name;
 
-        WarningLevel(String type, String name) {
-            this.type = type;
-            this.name = name;
-        }
-
-        public String getType() {
-            return type;
-        }
-
-        public String getName() {
-            return name;
-        }
     }
 
     public static Optional<WarningLevel> getWarningLevelByType(String type) {
@@ -429,6 +380,8 @@ public class SysConst {
     /**
      * 情感范围
      */
+    @Getter
+    @AllArgsConstructor
     public enum Emotion {
 
         ALL("all", "全部"),
@@ -440,18 +393,6 @@ public class SysConst {
         private String type;
         private String name;
 
-        Emotion(String type, String name) {
-            this.type = type;
-            this.name = name;
-        }
-
-        public String getType() {
-            return type;
-        }
-
-        public String getName() {
-            return name;
-        }
     }
 
     public static Optional<Emotion> getEmotionByType(String type) {
@@ -464,6 +405,8 @@ public class SysConst {
     /**
      * 载体范围
      */
+    @Getter
+    @AllArgsConstructor
     public enum Carrie {
 
         Carrie_2000(2000, "综合"),
@@ -481,18 +424,6 @@ public class SysConst {
         private Integer code;
         private String name;
 
-        Carrie(Integer code, String name) {
-            this.code = code;
-            this.name = name;
-        }
-
-        public Integer getCode() {
-            return code;
-        }
-
-        public String getName() {
-            return name;
-        }
     }
 
     public static Optional<Carrie> getCarrieByCode(Integer type) {
@@ -504,6 +435,8 @@ public class SysConst {
     /**
      * 载体范围
      */
+    @Getter
+    @AllArgsConstructor
     public enum CarrieList {
 
         Carrie_ALL(Arrays.asList(2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2999), "全部"),
@@ -521,24 +454,13 @@ public class SysConst {
 
         private List<Integer> code;
         private String name;
-
-        CarrieList(List<Integer> code, String name) {
-            this.code = code;
-            this.name = name;
-        }
-
-        public List<Integer> getCode() {
-            return code;
-        }
-
-        public String getName() {
-            return name;
-        }
     }
 
     /**
      * 搜索范围
      */
+    @Getter
+    @AllArgsConstructor
     public enum SearchArea {
 
         ALL("all", "全部"),
@@ -548,23 +470,14 @@ public class SysConst {
         private String type;
         private String name;
 
-        SearchArea(String type, String name) {
-            this.type = type;
-            this.name = name;
-        }
-
-        public String getType() {
-            return type;
-        }
-
-        public String getName() {
-            return name;
-        }
     }
 
     /**
      * 过滤类型
      */
+
+    @Getter
+    @AllArgsConstructor
     public enum Region {
 
         ALL(0, "全部"),
@@ -574,23 +487,13 @@ public class SysConst {
         private Integer code;
         private String name;
 
-        Region(Integer code, String name) {
-            this.code = code;
-            this.name = name;
-        }
-
-        public Integer getCode() {
-            return code;
-        }
-
-        public String getName() {
-            return name;
-        }
     }
 
     /**
      * 语言类型
      */
+    @Getter
+    @AllArgsConstructor
     public enum Language {
 
         CHINESE("chinese", "中文"),
@@ -601,51 +504,31 @@ public class SysConst {
         private String type;
         private String name;
 
-        Language(String type, String name) {
-            this.type = type;
-            this.name = name;
-        }
-
-        public String getType() {
-            return type;
-        }
-
-        public String getName() {
-            return name;
-        }
     }
 
     /**
-     * 预警通知类型
+     * 通知类型
      */
-    public enum WarningNoticeType {
+    @Getter
+    @AllArgsConstructor
+    public enum NoticeType {
 
         DIALOG("dialog", "弹框"),
         EMAIL("email", "邮件"),
         PHONE("phone", "短信"),
         APP("app", "APP"),
-        WECHAT("weChat", "微信");
+        WE_CHAT("weChat", "微信");
 
         private String type;
         private String name;
 
-        WarningNoticeType(String type, String name) {
-            this.type = type;
-            this.name = name;
-        }
-
-        public String getType() {
-            return type;
-        }
-
-        public String getName() {
-            return name;
-        }
     }
 
     /**
      * 报告类型
      */
+    @Getter
+    @AllArgsConstructor
     public enum BriefingType {
         DAY("day", "日报"),
         WEEK("week", "周报"),
@@ -653,19 +536,6 @@ public class SysConst {
 
         private String type;
         private String name;
-
-        BriefingType(String type, String name) {
-            this.type = type;
-            this.name = name;
-        }
-
-        public String getType() {
-            return type;
-        }
-
-        public String getName() {
-            return name;
-        }
     }
 
     public static Optional<BriefingType> getBriefingTypeByType(String type) {
@@ -677,55 +547,21 @@ public class SysConst {
     /**
      * 报告模板类型
      */
+    @Getter
+    @AllArgsConstructor
     public enum TemplateType {
         CURRENCY_EDITION(1, "通用版"),
         MEDIA_EDITION(2, "媒体版");
 
         private Integer code;
         private String name;
-
-        TemplateType(Integer code, String name) {
-            this.code = code;
-            this.name = name;
-        }
-
-        public Integer getCode() {
-            return code;
-        }
-
-        public String getName() {
-            return name;
-        }
-    }
-
-    /**
-     * 报告模板格式
-     */
-    public enum TemplateSuffix {
-        WORD2003_EDITION("doc", "word2003"),
-        WORD2007_EDITION("docx", "word2007"),
-        PDF_EDITION("pdf", "pdf");
-
-        private String type;
-        private String name;
-
-        TemplateSuffix(String type, String name) {
-            this.type = type;
-            this.name = name;
-        }
-
-        public String getType() {
-            return type;
-        }
-
-        public String getName() {
-            return name;
-        }
     }
 
     /**
      * 模板编号
      */
+    @Getter
+    @AllArgsConstructor
     public enum TemplateNumber {
         CURRENCY_EDITION_0(0, "预警舆情"),
         CURRENCY_EDITION_1(1, "负面舆情"),
@@ -746,23 +582,13 @@ public class SysConst {
         private Integer code;
         private String name;
 
-        TemplateNumber(Integer code, String name) {
-            this.code = code;
-            this.name = name;
-        }
-
-        public Integer getCode() {
-            return code;
-        }
-
-        public String getName() {
-            return name;
-        }
     }
 
     /**
      * 报告生成方式 是否默认 或者自定义
      */
+    @Getter
+    @AllArgsConstructor
     public enum BriefingCustom {
 
         DEFAULT(0, "默认"),
@@ -771,20 +597,13 @@ public class SysConst {
         private Integer code;
         private String name;
 
-        BriefingCustom(Integer code, String name) {
-            this.code = code;
-            this.name = name;
-        }
-
-        public Integer getCode() {
-            return code;
-        }
-
-        public String getName() {
-            return name;
-        }
     }
 
+    /**
+     * 应用中心的所有app
+     */
+    @Getter
+    @AllArgsConstructor
     public enum MenuApp {
         APP_CLOUD_SEARCH_INDEX(1L, "cloudSearchIndex", "云搜索"),
         APP_SITE(2L, "site", "网站巡查"),
@@ -802,23 +621,6 @@ public class SysConst {
         private String identify;
         private String name;
 
-        MenuApp(Long code, String identify, String name) {
-            this.code = code;
-            this.identify = identify;
-            this.name = name;
-        }
-
-        public Long getCode() {
-            return code;
-        }
-
-        public String getIdentify() {
-            return identify;
-        }
-
-        public String getName() {
-            return name;
-        }
     }
 
     public static Optional<MenuApp> getMenuAppByCode(Long code) {
@@ -830,6 +632,8 @@ public class SysConst {
     /**
      * app状态
      */
+    @Getter
+    @AllArgsConstructor
     public enum AppState {
 
         APP_STATE_0(0, "可使用"),
@@ -840,23 +644,13 @@ public class SysConst {
         private Integer code;
         private String name;
 
-        AppState(Integer code, String name) {
-            this.code = code;
-            this.name = name;
-        }
-
-        public Integer getCode() {
-            return code;
-        }
-
-        public String getName() {
-            return name;
-        }
     }
 
     /**
      * 报告专题类型
      */
+    @Getter
+    @AllArgsConstructor
     public enum SpecialEvent {
 
         SPECIAL("special", "专题"),
@@ -865,18 +659,6 @@ public class SysConst {
         private String type;
         private String name;
 
-        SpecialEvent(String type, String name) {
-            this.type = type;
-            this.name = name;
-        }
-
-        public String getType() {
-            return type;
-        }
-
-        public String getName() {
-            return name;
-        }
     }
 
     /**
@@ -908,6 +690,8 @@ public class SysConst {
     /**
      * 站点信息
      */
+    @Getter
+    @AllArgsConstructor
     public enum WebsiteInfo {
 
         DEFAULT("默认", "", ""),
@@ -920,23 +704,6 @@ public class SysConst {
         private String websiteUrl;
         private String websiteIcon;
 
-        WebsiteInfo(String websiteSource, String websiteUrl, String websiteIcon) {
-            this.websiteUrl = websiteUrl;
-            this.websiteSource = websiteSource;
-            this.websiteIcon = websiteIcon;
-        }
-
-        public String getWebsiteSource() {
-            return websiteSource;
-        }
-
-        public String getWebsiteUrl() {
-            return websiteUrl;
-        }
-
-        public String getWebsiteIcon() {
-            return websiteIcon;
-        }
     }
 
     private static Optional<WebsiteInfo> getWebsiteInfoBySource(String websiteSource) {
@@ -948,6 +715,8 @@ public class SysConst {
     /**
      * 评论分析状态
      */
+    @Getter
+    @AllArgsConstructor
     public enum AnalysisState {
 
         SUBMISSION_SUCCESS(0, "提交成功"),
@@ -958,23 +727,13 @@ public class SysConst {
         private Integer code;
         private String name;
 
-        AnalysisState(Integer code, String name) {
-            this.code = code;
-            this.name = name;
-        }
-
-        public Integer getCode() {
-            return code;
-        }
-
-        public String getName() {
-            return name;
-        }
     }
 
     /**
      * 词性类型
      */
+    @Getter
+    @AllArgsConstructor
     public enum WordType {
 
         WORD(0, "单词"),
@@ -983,23 +742,13 @@ public class SysConst {
         private Integer code;
         private String name;
 
-        WordType(Integer code, String name) {
-            this.code = code;
-            this.name = name;
-        }
-
-        public Integer getCode() {
-            return code;
-        }
-
-        public String getName() {
-            return name;
-        }
     }
 
     /**
      * 词来源
      */
+    @Getter
+    @AllArgsConstructor
     public enum WordSource {
 
         SYSTEM(0, "系统"),
@@ -1009,22 +758,13 @@ public class SysConst {
         private Integer code;
         private String name;
 
-        WordSource(Integer code, String name) {
-            this.code = code;
-            this.name = name;
-        }
-
-        public Integer getCode() {
-            return code;
-        }
-
-        public String getName() {
-            return name;
-        }
     }
+
     /**
      * 监测媒体类型
      */
+    @Getter
+    @AllArgsConstructor
     public enum SocialType {
 
         ALL("all", "全部"),
@@ -1034,17 +774,5 @@ public class SysConst {
         private String type;
         private String name;
 
-        SocialType(String type, String name) {
-            this.type = type;
-            this.name = name;
-        }
-
-        public String getType() {
-            return type;
-        }
-
-        public String getName() {
-            return name;
-        }
     }
 }

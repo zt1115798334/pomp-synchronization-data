@@ -11,7 +11,7 @@ import javax.persistence.*;
  * Created with IntelliJ IDEA.
  *
  * @author zhang tong
- * date: 2018/12/12 14:45
+ * date: 2018/12/14 13:16
  * description:
  */
 @EqualsAndHashCode(callSuper = true)
@@ -36,6 +36,26 @@ public class TargetUserConfig extends IdIdentityEntity {
 	* 显示状态 0 不可见，1可见
 	*/
 	private Integer abroadWebsiteDefaultShowState;
+	/**
+	* 专报数量
+	*/
+	private Integer specialReportCount;
+	/**
+	* 事件数量
+	*/
+	private Integer eventCount;
+	/**
+	* 子账户数量
+	*/
+	private Integer subAccountCount;
+	/**
+	* 订购app数量
+	*/
+	private Integer orderAppCount;
+	/**
+	* 短信数量
+	*/
+	private Integer smsCount;
 
 
     
