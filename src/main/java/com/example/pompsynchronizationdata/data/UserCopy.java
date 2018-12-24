@@ -1,18 +1,18 @@
 package com.example.pompsynchronizationdata.data;
 
-import com.example.pompsynchronizationdata.custom.ConsoleProgressBar;
-import com.example.pompsynchronizationdata.custom.DateUtils;
-import com.example.pompsynchronizationdata.custom.SysConst;
+import com.example.pompsynchronizationdata.custom.*;
 import com.example.pompsynchronizationdata.source.entity.SourceUser;
 import com.example.pompsynchronizationdata.source.service.SourceUserService;
 import com.example.pompsynchronizationdata.target.entity.TargetUser;
 import com.example.pompsynchronizationdata.target.entity.TargetUserConfig;
 import com.example.pompsynchronizationdata.target.service.TargetUserConfigService;
 import com.example.pompsynchronizationdata.target.service.TargetUserService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -132,33 +132,29 @@ public class UserCopy extends PageHandler<SourceUser> {
             if (sourceUserLevel == 3) { //正式
                 accountState = SysConst.AccountState.CEREMONIAL.getCode();
             }
-            TargetUser targetUser = new TargetUser();
-            targetUser.setId(sourceUserId);
-            targetUser.setAccount(sourceUserPhone);
-            targetUser.setPassword(sourceUserPassword);
-            targetUser.setPhone(sourceUserPhone);
-            targetUser.setEmail(sourceUserEmail);
-            targetUser.setAccountState(accountState);
-            targetUser.setAccountLevel(accountLevel);
-            targetUser.setExpireDate(sourceUserEndtime.toLocalDate());
-            targetUser.setExpireState(expireState);
-            targetUser.setSex(sex);
-            targetUser.setCompany(sourceUserCompany);
-            targetUser.setCity(sourceUserCity);
-            targetUser.setOperationUserIdL(sourceUserLsystemuserid);
-            targetUser.setProjectName(sourceUserProjectname);
-            targetUser.setProjectAlias(sourceUserRemarksname);
-            targetUser.setParentId(sourceUserParentId);
-            targetUser.setCreatedTime(sourceUserEndtime);
-            targetUser.setUpdatedTime(DateUtils.currentDateTime());
-            targetUser.setLastLoginTime(DateUtils.currentDateTime());
-            targetUser.setDeleteState(SysConst.DeleteState.UN_DELETED.getCode());
 
+            LocalDate expireDate = sourceUserEndtime == null ? DateUtils.currentDateAddMonth(2)
+                    : sourceUserEndtime.toLocalDate();
+            String salt = sourceUserSalt;
+            String password = sourceUserPassword;
+            if (StringUtils.isEmpty(sourceUserSalt)) {
+                salt = Encodes.encodeHex(Digests.generateSalt(Digests.SALT_SIZE));
+                byte[] hashPassword = Digests.sha1(password.getBytes(), Encodes.decodeHex(salt), Digests.HASH_INTERATIONS);
+                password = Encodes.encodeHex(hashPassword);
+            }
+            Long operationUserIdLc = 0L;
+            if (sourceUserLsystemuserid == null) {
+                operationUserIdLc = 31L;
+            }
 
-            targetUserService.save(targetUser);
+            sourceUserProreportsum = sourceUserProreportsum == null ? 0 : sourceUserProreportsum;
+            sourceUserEvent = sourceUserEvent == null ? 0 : sourceUserEvent;
+            sourceUserAccountCount = sourceUserAccountCount == null ? 0 : sourceUserAccountCount;
+            sourceUserOrderCount = sourceUserOrderCount == null ? 0 : sourceUserOrderCount;
+            sourceUserSms = sourceUserSms == null ? 0 : sourceUserSms;
+
 
             TargetUserConfig userConfig = new TargetUserConfig();
-            userConfig.setUserId(sourceUserId);
             userConfig.setWarningAppState(SysConst.EnabledState.ON.getCode());
             userConfig.setIndexChartSourceSpecialId(SysConst.INDEX_CHART_SOURCE_ALL);
             userConfig.setAbroadWebsiteDefaultShowState(SysConst.ShowState.DISPLAY.getCode());
@@ -167,7 +163,38 @@ public class UserCopy extends PageHandler<SourceUser> {
             userConfig.setSubAccountCount(sourceUserAccountCount);
             userConfig.setOrderAppCount(sourceUserOrderCount);
             userConfig.setSmsCount(sourceUserSms);
-            targetUserConfigService.save(userConfig);
+            TargetUserConfig targetUserConfig = targetUserConfigService.save(userConfig);
+
+
+            Long packageIdLc = sourceUserLsyspackageid == null ? 2L : sourceUserLsyspackageid;
+            TargetUser targetUser = new TargetUser();
+            targetUser.setUserConfigId(targetUserConfig.getId());
+            targetUser.setId(sourceUserId);
+            targetUser.setAccount(sourceUserPhone);
+            targetUser.setPassword(password);
+            targetUser.setSalt(salt);
+            targetUser.setPhone(sourceUserPhone);
+            targetUser.setEmail(sourceUserEmail);
+            targetUser.setAccountState(accountState);
+            targetUser.setAccountLevel(accountLevel);
+            targetUser.setExpireDate(expireDate);
+            targetUser.setExpireState(expireState);
+            targetUser.setSex(sex);
+            targetUser.setCompany(sourceUserCompany);
+            targetUser.setCity(sourceUserCity);
+            targetUser.setOperationUserIdLc(operationUserIdLc);
+            targetUser.setProjectName(sourceUserProjectname);
+            targetUser.setProjectAlias(sourceUserRemarksname);
+            targetUser.setPackageIdLc(packageIdLc);
+            targetUser.setParentId(sourceUserParentId);
+            targetUser.setCreatedTime(sourceUserCreatedAt);
+            targetUser.setUpdatedTime(DateUtils.currentDateTime());
+            targetUser.setLastLoginTime(DateUtils.currentDateTime());
+            targetUser.setDeleteState(SysConst.DeleteState.UN_DELETED.getCode());
+
+
+            targetUserService.save(targetUser);
+
 
             cpb.show(i);
         }

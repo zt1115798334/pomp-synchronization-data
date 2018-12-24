@@ -122,8 +122,8 @@ public class MyApplicationRunner implements ApplicationRunner {
     public void run(ApplicationArguments args) throws Exception {
         log.info("开始同步数据了...");
 
-//        log.info("step 1 -- 开始同步用户信息数据...");
-//        userCopy.handle();
+        log.info("step 1 -- 开始同步用户信息数据...");
+        userCopy.handle();
 
 //        log.info("step 2 -- 开始同步预警通知信息数据...");
 //        warningNoticeCopy.handle();

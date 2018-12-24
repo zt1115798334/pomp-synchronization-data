@@ -73,7 +73,7 @@ public class TargetUser extends IdEntity {
 	/**
 	* 运维人id
 	*/
-	private Long operationUserIdL;
+	private Long operationUserIdLc;
 	/**
 	* 项目名称
 	*/
@@ -85,7 +85,7 @@ public class TargetUser extends IdEntity {
 	/**
 	* 套餐id
 	*/
-	private Long packageIdL;
+	private Long packageIdLc;
 	/**
 	* 父级id
 	*/
@@ -106,6 +106,8 @@ public class TargetUser extends IdEntity {
 	* 删除状态：1已删除 0未删除
 	*/
 	private Integer deleteState;
+
+	private Long userConfigId;
 
 
     

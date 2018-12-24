@@ -20,10 +20,7 @@ import javax.persistence.*;
 @Table(name = "t_user_config")
 public class TargetUserConfig extends IdIdentityEntity {
 
-	/**
-	* 用户id
-	*/
-	private Long userId;
+
 	/**
 	* app预警状态 1  开启 0 停用
 	*/

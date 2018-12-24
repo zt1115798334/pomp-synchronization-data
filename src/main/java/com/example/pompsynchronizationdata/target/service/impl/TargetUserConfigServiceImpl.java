@@ -1,8 +1,6 @@
 package com.example.pompsynchronizationdata.target.service.impl;
 
 
-import com.example.pompsynchronizationdata.custom.SysConst;
-import com.example.pompsynchronizationdata.target.entity.TargetUser;
 import com.example.pompsynchronizationdata.target.entity.TargetUserConfig;
 import com.example.pompsynchronizationdata.target.repo.TargetUserConfigRepository;
 import com.example.pompsynchronizationdata.target.service.TargetUserConfigService;
@@ -10,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Optional;
 
 /**
  * Created with IntelliJ IDEA.

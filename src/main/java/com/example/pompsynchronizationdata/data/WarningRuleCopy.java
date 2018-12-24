@@ -211,22 +211,22 @@ public class WarningRuleCopy extends PageHandler<SourceWarningRule> {
                         String warning_method = sourceWarningRuleValueJSON.getString("warning_method");
                         List<String> warningEmotionList = Lists.newArrayList();
                         if (warning_method.contains("tc")) {    //弹窗
-                            warningEmotionList.add(SysConst.WarningNoticeType.DIALOG.getType());
+                            warningEmotionList.add(SysConst.NoticeType.DIALOG.getType());
                         }
                         if (warning_method.contains("yx")) {    //邮箱
-                            warningEmotionList.add(SysConst.WarningNoticeType.EMAIL.getType());
+                            warningEmotionList.add(SysConst.NoticeType.EMAIL.getType());
                         }
                         if (warning_method.contains("dx")) {    //短信
 
-                            warningEmotionList.add(SysConst.WarningNoticeType.PHONE.getType());
+                            warningEmotionList.add(SysConst.NoticeType.PHONE.getType());
                         }
                         if (warning_method.contains("app")) {    //app
 
-                            warningEmotionList.add(SysConst.WarningNoticeType.APP.getType());
+                            warningEmotionList.add(SysConst.NoticeType.APP.getType());
                         }
                         if (warning_method.contains("weChat")) {    //微信公众号
 
-                            warningEmotionList.add(SysConst.WarningNoticeType.WECHAT.getType());
+                            warningEmotionList.add(SysConst.NoticeType.WE_CHAT.getType());
                         }
                         targetWarningRule.setWarningNoticeType(String.join(",", warningEmotionList));
                     }
